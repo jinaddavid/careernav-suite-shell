@@ -1,0 +1,7 @@
+/* Optional helpers — host apps should already define shadcn-style CSS variables:
+   --background, --foreground, --card, --card-foreground, --muted, --muted-foreground,
+   --primary, --primary-foreground, --border, --destructive
+*/
+.cn-suite-header {
+  --cn-suite-radius: 1rem;
+}

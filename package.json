@@ -1,6 +1,6 @@
 {
   "name": "@careernav/suite-shell",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared CareerNav suite header and product switcher chrome",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -23,7 +23,8 @@
   "scripts": {
     "build": "tsup && cp src/suite-shell.css dist/suite-shell.css",
     "dev": "tsup --watch",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prepack": "npm run build"
   },
   "peerDependencies": {
     "react": ">=18",
