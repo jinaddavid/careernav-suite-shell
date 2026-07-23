@@ -93,10 +93,6 @@ type SuiteProductDef = {
     id: SuiteProductId;
     name: string;
     Icon: LucideIcon;
-    iconColor: string;
-    hoverBg: string;
-    ringColor: string;
-    activeBg: string;
     /** Studio-hosted path products (jobs, my-paths) */
     studioPath?: string;
 };

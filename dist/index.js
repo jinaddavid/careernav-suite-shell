@@ -155,62 +155,12 @@ function withSso(href, token) {
 
 // src/products.ts
 var SUITE_PRODUCTS = [
-  {
-    id: "studio",
-    name: "Studio",
-    Icon: Headphones,
-    iconColor: "text-teal-600 dark:text-teal-400",
-    hoverBg: "hover:bg-teal-50 dark:hover:bg-teal-950/40",
-    ringColor: "ring-teal-500",
-    activeBg: "bg-teal-50 dark:bg-teal-950/50"
-  },
-  {
-    id: "jobs",
-    name: "Jobs",
-    Icon: Briefcase,
-    iconColor: "text-blue-600 dark:text-blue-400",
-    hoverBg: "hover:bg-blue-50 dark:hover:bg-blue-950/40",
-    ringColor: "ring-blue-500",
-    activeBg: "bg-blue-50 dark:bg-blue-950/50",
-    studioPath: "/jobs"
-  },
-  {
-    id: "lab",
-    name: "Lab",
-    Icon: FlaskConical,
-    iconColor: "text-purple-600 dark:text-purple-400",
-    hoverBg: "hover:bg-purple-50 dark:hover:bg-purple-950/40",
-    ringColor: "ring-purple-500",
-    activeBg: "bg-purple-50 dark:bg-purple-950/50"
-  },
-  {
-    id: "live",
-    name: "Live",
-    Icon: Radio,
-    iconColor: "text-rose-600 dark:text-rose-400",
-    hoverBg: "hover:bg-rose-50 dark:hover:bg-rose-950/40",
-    ringColor: "ring-rose-500",
-    activeBg: "bg-rose-50 dark:bg-rose-950/50"
-  },
-  {
-    id: "gym",
-    name: "Gym",
-    Icon: Dumbbell,
-    iconColor: "text-orange-600 dark:text-orange-400",
-    hoverBg: "hover:bg-orange-50 dark:hover:bg-orange-950/40",
-    ringColor: "ring-orange-500",
-    activeBg: "bg-orange-50 dark:bg-orange-950/50"
-  },
-  {
-    id: "my-paths",
-    name: "My Paths",
-    Icon: Route,
-    iconColor: "text-emerald-600 dark:text-emerald-400",
-    hoverBg: "hover:bg-emerald-50 dark:hover:bg-emerald-950/40",
-    ringColor: "ring-emerald-500",
-    activeBg: "bg-emerald-50 dark:bg-emerald-950/50",
-    studioPath: "/my-paths"
-  }
+  { id: "studio", name: "Studio", Icon: Headphones },
+  { id: "jobs", name: "Jobs", Icon: Briefcase, studioPath: "/jobs" },
+  { id: "lab", name: "Lab", Icon: FlaskConical },
+  { id: "live", name: "Live", Icon: Radio },
+  { id: "gym", name: "Gym", Icon: Dumbbell },
+  { id: "my-paths", name: "My Paths", Icon: Route, studioPath: "/my-paths" }
 ];
 function productDisplayName(id) {
   return SUITE_PRODUCTS.find((p) => p.id === id)?.name ?? id;
@@ -242,9 +192,9 @@ function AppSwitcher({
   accountLabel = "Account Settings"
 }) {
   const token = getSsoToken?.() ?? null;
-  return /* @__PURE__ */ jsxs("div", { className: "w-80 p-6", children: [
-    /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between mb-6 px-2", children: /* @__PURE__ */ jsx("h3", { className: "text-xs font-bold text-muted-foreground/70 uppercase tracking-widest", children: "Product Suite" }) }),
-    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-y-6 gap-x-4", children: SUITE_PRODUCTS.map((p) => {
+  return /* @__PURE__ */ jsxs("div", { className: "cn-suite-switcher", children: [
+    /* @__PURE__ */ jsx("div", { className: "cn-suite-switcher__head", children: /* @__PURE__ */ jsx("h3", { className: "cn-suite-switcher__title", children: "Product Suite" }) }),
+    /* @__PURE__ */ jsx("div", { className: "cn-suite-switcher__grid", children: SUITE_PRODUCTS.map((p) => {
       const isCurrent = p.id === productId;
       const Icon = p.Icon;
       const href = resolveProductHref(p, productUrls, token);
@@ -253,43 +203,30 @@ function AppSwitcher({
         {
           href,
           onClick: onNavigate,
-          className: "flex flex-col items-center group cursor-pointer outline-none",
+          className: cn(
+            "cn-suite-tile",
+            `cn-suite-tile--${p.id}`,
+            isCurrent && "cn-suite-tile--current"
+          ),
+          "aria-current": isCurrent ? "page" : void 0,
           children: [
-            /* @__PURE__ */ jsx(
-              "div",
-              {
-                className: cn(
-                  "w-14 h-14 rounded-2xl flex items-center justify-center mb-2 transition-all",
-                  isCurrent ? cn(p.activeBg, "ring-2", p.ringColor, "shadow-md") : cn("bg-muted", p.hoverBg)
-                ),
-                children: /* @__PURE__ */ jsx(Icon, { className: cn("w-7 h-7", p.iconColor), strokeWidth: 2 })
-              }
-            ),
-            /* @__PURE__ */ jsx(
-              "span",
-              {
-                className: cn(
-                  "text-[11px] transition-colors",
-                  isCurrent ? "font-bold text-foreground" : "font-medium text-muted-foreground group-hover:text-foreground"
-                ),
-                children: p.name
-              }
-            )
+            /* @__PURE__ */ jsx("div", { className: "cn-suite-tile__icon-wrap", children: /* @__PURE__ */ jsx(Icon, { className: "cn-suite-tile__icon", strokeWidth: 2, "aria-hidden": true }) }),
+            /* @__PURE__ */ jsx("span", { className: "cn-suite-tile__label", children: p.name })
           ]
         },
         p.id
       );
     }) }),
-    /* @__PURE__ */ jsxs("div", { className: "mt-8 pt-4 border-t border-border flex flex-col space-y-1", children: [
+    /* @__PURE__ */ jsxs("div", { className: "cn-suite-switcher__footer", children: [
       accountSettingsHref ? /* @__PURE__ */ jsxs(
         "a",
         {
           href: accountSettingsHref,
           onClick: onNavigate,
-          className: "flex items-center space-x-3 px-2 py-2 hover:bg-muted rounded-xl transition-colors group",
+          className: "cn-suite-switcher__action",
           children: [
-            /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground group-hover:bg-card group-hover:shadow-sm transition-all", children: /* @__PURE__ */ jsx(Settings, { className: "w-4 h-4" }) }),
-            /* @__PURE__ */ jsx("span", { className: "text-xs font-medium text-muted-foreground", children: accountLabel })
+            /* @__PURE__ */ jsx("span", { className: "cn-suite-switcher__action-icon", children: /* @__PURE__ */ jsx(Settings, { className: "cn-suite-switcher__action-svg", "aria-hidden": true }) }),
+            /* @__PURE__ */ jsx("span", { className: "cn-suite-switcher__action-label", children: accountLabel })
           ]
         }
       ) : null,
@@ -301,10 +238,10 @@ function AppSwitcher({
             onLogout();
             onNavigate?.();
           },
-          className: "flex items-center space-x-3 px-2 py-2 hover:bg-muted rounded-xl transition-colors group text-left",
+          className: "cn-suite-switcher__action cn-suite-switcher__action--danger",
           children: [
-            /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-full bg-muted flex items-center justify-center text-rose-500 group-hover:bg-card group-hover:shadow-sm transition-all", children: /* @__PURE__ */ jsx(LogOut, { className: "w-4 h-4" }) }),
-            /* @__PURE__ */ jsx("span", { className: "text-xs font-medium text-rose-500", children: "Sign Out" })
+            /* @__PURE__ */ jsx("span", { className: "cn-suite-switcher__action-icon", children: /* @__PURE__ */ jsx(LogOut, { className: "cn-suite-switcher__action-svg", "aria-hidden": true }) }),
+            /* @__PURE__ */ jsx("span", { className: "cn-suite-switcher__action-label", children: "Sign Out" })
           ]
         }
       ) : null

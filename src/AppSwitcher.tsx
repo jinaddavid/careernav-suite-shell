@@ -25,14 +25,12 @@ export function AppSwitcher({
   const token = getSsoToken?.() ?? null;
 
   return (
-    <div className="w-80 p-6">
-      <div className="flex items-center justify-between mb-6 px-2">
-        <h3 className="text-xs font-bold text-muted-foreground/70 uppercase tracking-widest">
-          Product Suite
-        </h3>
+    <div className="cn-suite-switcher">
+      <div className="cn-suite-switcher__head">
+        <h3 className="cn-suite-switcher__title">Product Suite</h3>
       </div>
 
-      <div className="grid grid-cols-3 gap-y-6 gap-x-4">
+      <div className="cn-suite-switcher__grid">
         {SUITE_PRODUCTS.map((p) => {
           const isCurrent = p.id === productId;
           const Icon = p.Icon;
@@ -42,46 +40,33 @@ export function AppSwitcher({
               key={p.id}
               href={href}
               onClick={onNavigate}
-              className="flex flex-col items-center group cursor-pointer outline-none"
+              className={cn(
+                "cn-suite-tile",
+                `cn-suite-tile--${p.id}`,
+                isCurrent && "cn-suite-tile--current",
+              )}
+              aria-current={isCurrent ? "page" : undefined}
             >
-              <div
-                className={cn(
-                  "w-14 h-14 rounded-2xl flex items-center justify-center mb-2 transition-all",
-                  isCurrent
-                    ? cn(p.activeBg, "ring-2", p.ringColor, "shadow-md")
-                    : cn("bg-muted", p.hoverBg),
-                )}
-              >
-                <Icon className={cn("w-7 h-7", p.iconColor)} strokeWidth={2} />
+              <div className="cn-suite-tile__icon-wrap">
+                <Icon className="cn-suite-tile__icon" strokeWidth={2} aria-hidden />
               </div>
-              <span
-                className={cn(
-                  "text-[11px] transition-colors",
-                  isCurrent
-                    ? "font-bold text-foreground"
-                    : "font-medium text-muted-foreground group-hover:text-foreground",
-                )}
-              >
-                {p.name}
-              </span>
+              <span className="cn-suite-tile__label">{p.name}</span>
             </a>
           );
         })}
       </div>
 
-      <div className="mt-8 pt-4 border-t border-border flex flex-col space-y-1">
+      <div className="cn-suite-switcher__footer">
         {accountSettingsHref ? (
           <a
             href={accountSettingsHref}
             onClick={onNavigate}
-            className="flex items-center space-x-3 px-2 py-2 hover:bg-muted rounded-xl transition-colors group"
+            className="cn-suite-switcher__action"
           >
-            <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground group-hover:bg-card group-hover:shadow-sm transition-all">
-              <Settings className="w-4 h-4" />
-            </div>
-            <span className="text-xs font-medium text-muted-foreground">
-              {accountLabel}
+            <span className="cn-suite-switcher__action-icon">
+              <Settings className="cn-suite-switcher__action-svg" aria-hidden />
             </span>
+            <span className="cn-suite-switcher__action-label">{accountLabel}</span>
           </a>
         ) : null}
         {onLogout ? (
@@ -91,12 +76,12 @@ export function AppSwitcher({
               onLogout();
               onNavigate?.();
             }}
-            className="flex items-center space-x-3 px-2 py-2 hover:bg-muted rounded-xl transition-colors group text-left"
+            className="cn-suite-switcher__action cn-suite-switcher__action--danger"
           >
-            <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-rose-500 group-hover:bg-card group-hover:shadow-sm transition-all">
-              <LogOut className="w-4 h-4" />
-            </div>
-            <span className="text-xs font-medium text-rose-500">Sign Out</span>
+            <span className="cn-suite-switcher__action-icon">
+              <LogOut className="cn-suite-switcher__action-svg" aria-hidden />
+            </span>
+            <span className="cn-suite-switcher__action-label">Sign Out</span>
           </button>
         ) : null}
       </div>
