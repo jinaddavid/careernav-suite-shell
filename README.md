@@ -23,7 +23,7 @@ npm install @careernav/suite-shell@0.1.0
 **Git dependency (Vercel-friendly):**
 
 ```json
-"@careernav/suite-shell": "github:jinaddavid/careernav-suite-shell#v0.1.0"
+"@careernav/suite-shell": "github:jinaddavid/careernav-suite-shell#v0.1.1"
 ```
 
 ## Usage
