@@ -61,7 +61,9 @@ Host apps must provide Tailwind utility classes used by the shell (or include th
 
 ```bash
 npm run build
-npm publish
+NODE_AUTH_TOKEN=<pat-with-write:packages> npm publish
 ```
 
-Requires `NODE_AUTH_TOKEN` with `write:packages` for GitHub Packages.
+Requires a GitHub PAT with `write:packages`, and the `@careernav` scope must map to a GitHub org/user that owns this repo.
+
+Until Packages publish is available, install via the **git dependency** (`#v0.1.0`) above — that works for Vercel without an npm registry.
