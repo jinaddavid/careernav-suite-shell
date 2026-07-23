@@ -72,6 +72,90 @@
 
 .cn-suite-header {
   --cn-suite-radius: 1rem;
+  /* Current product accent (overridden per productId) */
+  --cn-product: var(--cn-primary);
+  --cn-product-fg: var(--cn-primary-fg);
+  --cn-product-soft: var(--cn-muted);
+}
+
+.cn-suite-header--studio {
+  --cn-product: #0d9488;
+  --cn-product-fg: #ffffff;
+  --cn-product-soft: #f0fdfa;
+}
+.cn-suite-header--lab {
+  --cn-product: #9333ea;
+  --cn-product-fg: #ffffff;
+  --cn-product-soft: #faf5ff;
+}
+.cn-suite-header--live {
+  --cn-product: #e11d48;
+  --cn-product-fg: #ffffff;
+  --cn-product-soft: #fff1f2;
+}
+.cn-suite-header--gym {
+  --cn-product: #ea580c;
+  --cn-product-fg: #ffffff;
+  --cn-product-soft: #fff7ed;
+}
+
+.cn-suite-root .cn-suite-brand-mark {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  background: var(--cn-product) !important;
+  color: var(--cn-product-fg) !important;
+}
+
+.cn-suite-root .cn-suite-brand-name {
+  font-weight: 700;
+  color: var(--cn-product) !important;
+}
+
+.cn-suite-root .cn-suite-brand-suite {
+  color: var(--cn-muted-fg);
+}
+
+.cn-suite-root .cn-suite-brand-sep {
+  color: var(--cn-border);
+}
+
+.cn-suite-root .cn-suite-nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  text-decoration: none;
+}
+
+.cn-suite-root .cn-suite-nav-link--mobile {
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.75rem;
+}
+
+.cn-suite-root .cn-suite-nav-link--idle {
+  color: var(--cn-muted-fg);
+  background: transparent;
+}
+
+.cn-suite-root .cn-suite-nav-link--idle:hover {
+  color: var(--cn-fg);
+  background: var(--cn-muted);
+}
+
+.cn-suite-root .cn-suite-nav-link--active {
+  background: var(--cn-product-soft) !important;
+  color: var(--cn-product) !important;
+  font-weight: 600;
 }
 
 /* ── Product Suite switcher (no shared Tailwind color utilities) ── */

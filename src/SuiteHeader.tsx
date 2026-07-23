@@ -123,24 +123,21 @@ export function SuiteHeader({
 
   const navClass = ({ isActive }: { isActive: boolean }) =>
     cn(
-      "px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
-      isActive
-        ? "bg-muted text-primary"
-        : "text-muted-foreground hover:text-foreground hover:bg-muted",
+      "cn-suite-nav-link",
+      isActive ? "cn-suite-nav-link--active" : "cn-suite-nav-link--idle",
     );
 
   const mobileNavClass = ({ isActive }: { isActive: boolean }) =>
     cn(
-      "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-      isActive
-        ? "bg-muted text-primary"
-        : "text-muted-foreground hover:text-foreground hover:bg-muted",
+      "cn-suite-nav-link cn-suite-nav-link--mobile",
+      isActive ? "cn-suite-nav-link--active" : "cn-suite-nav-link--idle",
     );
 
   return (
     <header
       className={cn(
         "cn-suite-root cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
+        `cn-suite-header--${productId}`,
         className,
       )}
     >
@@ -167,10 +164,8 @@ export function SuiteHeader({
                   <div className="absolute left-0 top-0 bottom-0 w-72 bg-card border-r border-border p-6 shadow-xl">
                     <div className="flex items-center justify-between mb-8">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-primary text-primary-foreground">
-                          {mark}
-                        </div>
-                        <span className="font-bold text-primary">{name}</span>
+                        <div className="cn-suite-brand-mark">{mark}</div>
+                        <span className="cn-suite-brand-name">{name}</span>
                       </div>
                       <button
                         type="button"
@@ -200,14 +195,12 @@ export function SuiteHeader({
             </>
           ) : null}
 
-          <Link to={homeHref} className="flex items-center space-x-3 group">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-sm bg-primary text-primary-foreground">
-              {mark}
-            </div>
-            <nav className="flex items-center text-sm font-semibold tracking-tight">
-              <span className="hidden sm:inline text-muted-foreground">Suite</span>
-              <span className="mx-2 hidden sm:inline text-border">/</span>
-              <span className="font-bold text-primary">{name}</span>
+          <Link to={homeHref} className="cn-suite-brand flex items-center space-x-3 group">
+            <div className="cn-suite-brand-mark">{mark}</div>
+            <nav className="cn-suite-brand-crumb flex items-center text-sm font-semibold tracking-tight">
+              <span className="cn-suite-brand-suite hidden sm:inline">Suite</span>
+              <span className="cn-suite-brand-sep mx-2 hidden sm:inline">/</span>
+              <span className="cn-suite-brand-name">{name}</span>
             </nav>
           </Link>
         </div>

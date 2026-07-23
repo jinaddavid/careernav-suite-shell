@@ -327,18 +327,19 @@ function SuiteHeader({
   }, [onSearchClick]);
   const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad|iPod/.test(navigator.platform);
   const navClass = ({ isActive }) => cn(
-    "px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
-    isActive ? "bg-muted text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+    "cn-suite-nav-link",
+    isActive ? "cn-suite-nav-link--active" : "cn-suite-nav-link--idle"
   );
   const mobileNavClass = ({ isActive }) => cn(
-    "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-    isActive ? "bg-muted text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+    "cn-suite-nav-link cn-suite-nav-link--mobile",
+    isActive ? "cn-suite-nav-link--active" : "cn-suite-nav-link--idle"
   );
   return /* @__PURE__ */ jsx(
     "header",
     {
       className: cn(
         "cn-suite-root cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
+        `cn-suite-header--${productId}`,
         className
       ),
       children: /* @__PURE__ */ jsxs("div", { className: "mx-auto max-w-7xl flex items-center justify-between h-16 px-3 md:px-6 bg-card text-card-foreground border border-border rounded-2xl shadow-sm", children: [
@@ -367,8 +368,8 @@ function SuiteHeader({
               /* @__PURE__ */ jsxs("div", { className: "absolute left-0 top-0 bottom-0 w-72 bg-card border-r border-border p-6 shadow-xl", children: [
                 /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-8", children: [
                   /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-                    /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-primary text-primary-foreground", children: mark }),
-                    /* @__PURE__ */ jsx("span", { className: "font-bold text-primary", children: name })
+                    /* @__PURE__ */ jsx("div", { className: "cn-suite-brand-mark", children: mark }),
+                    /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-name", children: name })
                   ] }),
                   /* @__PURE__ */ jsx(
                     "button",
@@ -395,12 +396,12 @@ function SuiteHeader({
               ] })
             ] }) : null
           ] }) : null,
-          /* @__PURE__ */ jsxs(Link, { to: homeHref, className: "flex items-center space-x-3 group", children: [
-            /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-sm bg-primary text-primary-foreground", children: mark }),
-            /* @__PURE__ */ jsxs("nav", { className: "flex items-center text-sm font-semibold tracking-tight", children: [
-              /* @__PURE__ */ jsx("span", { className: "hidden sm:inline text-muted-foreground", children: "Suite" }),
-              /* @__PURE__ */ jsx("span", { className: "mx-2 hidden sm:inline text-border", children: "/" }),
-              /* @__PURE__ */ jsx("span", { className: "font-bold text-primary", children: name })
+          /* @__PURE__ */ jsxs(Link, { to: homeHref, className: "cn-suite-brand flex items-center space-x-3 group", children: [
+            /* @__PURE__ */ jsx("div", { className: "cn-suite-brand-mark", children: mark }),
+            /* @__PURE__ */ jsxs("nav", { className: "cn-suite-brand-crumb flex items-center text-sm font-semibold tracking-tight", children: [
+              /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-suite hidden sm:inline", children: "Suite" }),
+              /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-sep mx-2 hidden sm:inline", children: "/" }),
+              /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-name", children: name })
             ] })
           ] })
         ] }),
