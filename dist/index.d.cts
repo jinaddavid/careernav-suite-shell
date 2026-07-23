@@ -17,6 +17,8 @@ type SuiteUser = {
 type SuiteNavItem = {
     to: string;
     label: string;
+    /** When true, only exact path matches (default: prefix match for nested routes) */
+    end?: boolean;
 };
 type SuiteLinkProps = {
     to: string;
@@ -40,6 +42,8 @@ type SuiteHeaderProps = {
     productId: SuiteProductId;
     /** Display name in Suite / Name (defaults from product catalog) */
     productName?: string;
+    /** Letter in the brand mark (defaults to first letter of product name) */
+    productInitial?: string;
     navItems?: SuiteNavItem[];
     user?: SuiteUser | null;
     isAuthenticated?: boolean;
@@ -66,7 +70,7 @@ type SuiteHeaderProps = {
     className?: string;
 };
 
-declare function SuiteHeader({ productId, productName, navItems, user, isAuthenticated, onLogout, onLoginClick, onSearchClick, searchPlaceholder, Link: LinkComp, NavLink: NavLinkComp, productUrls, getSsoToken, accountSettingsHref, accountLabel, loginHref, homeHref, showThemeToggle, theme, onThemeToggle, className, }: SuiteHeaderProps): react.JSX.Element;
+declare function SuiteHeader({ productId, productName, productInitial, navItems, user, isAuthenticated, onLogout, onLoginClick, onSearchClick, searchPlaceholder, Link: LinkComp, NavLink: NavLinkComp, productUrls, getSsoToken, accountSettingsHref, accountLabel, loginHref, homeHref, showThemeToggle, theme, onThemeToggle, className, }: SuiteHeaderProps): react.JSX.Element;
 
 type Props$1 = {
     productId: SuiteProductId;

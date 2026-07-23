@@ -69,6 +69,7 @@ function DefaultNavLink({
 export function SuiteHeader({
   productId,
   productName,
+  productInitial,
   navItems = [],
   user,
   isAuthenticated,
@@ -94,6 +95,7 @@ export function SuiteHeader({
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const name = productName ?? productDisplayName(productId);
+  const mark = (productInitial ?? name.charAt(0) ?? "C").toUpperCase();
   const authed = isAuthenticated ?? !!user;
 
   const initials = (user?.name || user?.email || "U")
@@ -138,10 +140,9 @@ export function SuiteHeader({
   return (
     <header
       className={cn(
-        "cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
+        "cn-suite-root cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
         className,
       )}
-      style={{ fontFamily: "'Inter', sans-serif" }}
     >
       <div className="mx-auto max-w-7xl flex items-center justify-between h-16 px-3 md:px-6 bg-card text-card-foreground border border-border rounded-2xl shadow-sm">
         <div className="flex items-center gap-1.5 shrink-0">
@@ -167,7 +168,7 @@ export function SuiteHeader({
                     <div className="flex items-center justify-between mb-8">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-primary text-primary-foreground">
-                          L
+                          {mark}
                         </div>
                         <span className="font-bold text-primary">{name}</span>
                       </div>
@@ -185,7 +186,7 @@ export function SuiteHeader({
                         <NavLink
                           key={item.to}
                           to={item.to}
-                          end
+                          end={item.end}
                           onClick={() => setMobileNavOpen(false)}
                           className={mobileNavClass}
                         >
@@ -201,7 +202,7 @@ export function SuiteHeader({
 
           <Link to={homeHref} className="flex items-center space-x-3 group">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-sm bg-primary text-primary-foreground">
-              L
+              {mark}
             </div>
             <nav className="flex items-center text-sm font-semibold tracking-tight">
               <span className="hidden sm:inline text-muted-foreground">Suite</span>
@@ -214,7 +215,12 @@ export function SuiteHeader({
         {navItems.length > 0 ? (
           <nav className="hidden lg:flex items-center gap-1 ml-4">
             {navItems.map((item) => (
-              <NavLink key={item.to} to={item.to} end className={navClass}>
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={navClass}
+              >
                 {item.label}
               </NavLink>
             ))}

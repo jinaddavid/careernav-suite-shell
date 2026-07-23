@@ -14,17 +14,24 @@ function cn(...inputs) {
 }
 var Popover = PopoverPrimitive.Root;
 var PopoverTrigger = PopoverPrimitive.Trigger;
-var PopoverContent = React3.forwardRef(({ className, align = "center", sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsx(
+var PopoverContent = React3.forwardRef(({ className, align = "center", sideOffset = 4, children, ...props }, ref) => /* @__PURE__ */ jsx(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsx(
   PopoverPrimitive.Content,
   {
     ref,
     align,
     sideOffset,
-    className: cn(
-      "z-[100] rounded-3xl border border-border bg-card text-card-foreground shadow-2xl outline-none",
-      className
-    ),
-    ...props
+    className: "cn-suite-root",
+    ...props,
+    children: /* @__PURE__ */ jsx(
+      "div",
+      {
+        className: cn(
+          "z-[100] rounded-3xl border border-border bg-card text-card-foreground shadow-2xl outline-none",
+          className
+        ),
+        children
+      }
+    )
   }
 ) }));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
@@ -63,16 +70,23 @@ var AvatarFallback = React3.forwardRef(({ className, ...props }, ref) => /* @__P
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 var DropdownMenu = DropdownMenuPrimitive.Root;
 var DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
-var DropdownMenuContent = React3.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx(
+var DropdownMenuContent = React3.forwardRef(({ className, sideOffset = 4, children, ...props }, ref) => /* @__PURE__ */ jsx(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx(
   DropdownMenuPrimitive.Content,
   {
     ref,
     sideOffset,
-    className: cn(
-      "z-[100] min-w-[8rem] overflow-hidden rounded-2xl border border-border bg-card p-1 text-card-foreground shadow-xl",
-      className
-    ),
-    ...props
+    className: "cn-suite-root",
+    ...props,
+    children: /* @__PURE__ */ jsx(
+      "div",
+      {
+        className: cn(
+          "z-[100] min-w-[8rem] overflow-hidden rounded-2xl border border-border bg-card p-1 text-card-foreground shadow-xl",
+          className
+        ),
+        children
+      }
+    )
   }
 ) }));
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
@@ -332,6 +346,7 @@ function DefaultNavLink({
 function SuiteHeader({
   productId,
   productName,
+  productInitial,
   navItems = [],
   user,
   isAuthenticated,
@@ -357,6 +372,7 @@ function SuiteHeader({
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const name = productName ?? productDisplayName(productId);
+  const mark = (productInitial ?? name.charAt(0) ?? "C").toUpperCase();
   const authed = isAuthenticated ?? !!user;
   const initials = (user?.name || user?.email || "U").split(/[\s@]/).filter(Boolean).slice(0, 2).map((s) => s[0]?.toUpperCase()).join("");
   useEffect(() => {
@@ -383,10 +399,9 @@ function SuiteHeader({
     "header",
     {
       className: cn(
-        "cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
+        "cn-suite-root cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
         className
       ),
-      style: { fontFamily: "'Inter', sans-serif" },
       children: /* @__PURE__ */ jsxs("div", { className: "mx-auto max-w-7xl flex items-center justify-between h-16 px-3 md:px-6 bg-card text-card-foreground border border-border rounded-2xl shadow-sm", children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-1.5 shrink-0", children: [
           navItems.length > 0 ? /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -413,7 +428,7 @@ function SuiteHeader({
               /* @__PURE__ */ jsxs("div", { className: "absolute left-0 top-0 bottom-0 w-72 bg-card border-r border-border p-6 shadow-xl", children: [
                 /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-8", children: [
                   /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-                    /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-primary text-primary-foreground", children: "L" }),
+                    /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-primary text-primary-foreground", children: mark }),
                     /* @__PURE__ */ jsx("span", { className: "font-bold text-primary", children: name })
                   ] }),
                   /* @__PURE__ */ jsx(
@@ -431,7 +446,7 @@ function SuiteHeader({
                   NavLink,
                   {
                     to: item.to,
-                    end: true,
+                    end: item.end,
                     onClick: () => setMobileNavOpen(false),
                     className: mobileNavClass,
                     children: item.label
@@ -442,7 +457,7 @@ function SuiteHeader({
             ] }) : null
           ] }) : null,
           /* @__PURE__ */ jsxs(Link, { to: homeHref, className: "flex items-center space-x-3 group", children: [
-            /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-sm bg-primary text-primary-foreground", children: "L" }),
+            /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-sm bg-primary text-primary-foreground", children: mark }),
             /* @__PURE__ */ jsxs("nav", { className: "flex items-center text-sm font-semibold tracking-tight", children: [
               /* @__PURE__ */ jsx("span", { className: "hidden sm:inline text-muted-foreground", children: "Suite" }),
               /* @__PURE__ */ jsx("span", { className: "mx-2 hidden sm:inline text-border", children: "/" }),
@@ -450,7 +465,16 @@ function SuiteHeader({
             ] })
           ] })
         ] }),
-        navItems.length > 0 ? /* @__PURE__ */ jsx("nav", { className: "hidden lg:flex items-center gap-1 ml-4", children: navItems.map((item) => /* @__PURE__ */ jsx(NavLink, { to: item.to, end: true, className: navClass, children: item.label }, item.to)) }) : null,
+        navItems.length > 0 ? /* @__PURE__ */ jsx("nav", { className: "hidden lg:flex items-center gap-1 ml-4", children: navItems.map((item) => /* @__PURE__ */ jsx(
+          NavLink,
+          {
+            to: item.to,
+            end: item.end,
+            className: navClass,
+            children: item.label
+          },
+          item.to
+        )) }) : null,
         onSearchClick ? /* @__PURE__ */ jsx("div", { className: "hidden md:block flex-1 max-w-md px-8", children: /* @__PURE__ */ jsxs(
           "button",
           {

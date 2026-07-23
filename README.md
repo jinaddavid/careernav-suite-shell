@@ -2,6 +2,21 @@
 
 Shared CareerNav suite chrome: pill header, Product Suite waffle, SSO URL helper.
 
+## CSS isolation (no host conflicts)
+
+The package ships **its own** stylesheet (`@careernav/suite-shell/styles.css`):
+
+- **No Tailwind Preflight** — does not reset the host page
+- Utilities are compiled with `important: '.cn-suite-root'` — they only apply inside suite chrome
+- Colors/radius read the host’s CSS variables (`--primary`, `--card`, `--border`, …)
+- Host apps **do not** need to scan this package in their Tailwind `content` / `@source`
+
+Always import the stylesheet once in the host:
+
+```ts
+import "@careernav/suite-shell/styles.css";
+```
+
 ## Install
 
 **Local sibling (dev):**
@@ -10,26 +25,17 @@ Shared CareerNav suite chrome: pill header, Product Suite waffle, SSO URL helper
 "@careernav/suite-shell": "file:../careernav-suite-shell"
 ```
 
-**GitHub Packages:**
-
-```
-@careernav:registry=https://npm.pkg.github.com
-```
-
-```bash
-npm install @careernav/suite-shell@0.1.1
-```
-
 **Git dependency (Vercel-friendly):**
 
 ```json
-"@careernav/suite-shell": "github:jinaddavid/careernav-suite-shell#v0.1.1"
+"@careernav/suite-shell": "github:jinaddavid/careernav-suite-shell#v0.1.3"
 ```
 
 ## Usage
 
 ```tsx
 import { SuiteHeader, getCareernavAuthToken } from "@careernav/suite-shell";
+import "@careernav/suite-shell/styles.css";
 import { Link, NavLink } from "react-router-dom";
 
 <SuiteHeader
@@ -55,7 +61,7 @@ import { Link, NavLink } from "react-router-dom";
 />
 ```
 
-Host apps must provide Tailwind utility classes used by the shell (or include the same design tokens as Studio).
+Host apps should define the usual design tokens (`--primary`, `--card`, `--border`, `--muted`, …).
 
 ## Publish
 
@@ -64,6 +70,4 @@ npm run build
 NODE_AUTH_TOKEN=<pat-with-write:packages> npm publish
 ```
 
-Requires a GitHub PAT with `write:packages`, and the `@careernav` scope must map to a GitHub org/user that owns this repo.
-
-Until Packages publish is available, install via the **git dependency** (`#v0.1.1`) above — that works for Vercel without an npm registry. `dist/` is committed so git installs do not need a local build.
+`dist/` (JS + `suite-shell.css`) is committed so `github:` installs work without a local build.

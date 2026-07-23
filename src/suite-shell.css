@@ -1,7 +1,44 @@
-/* Optional helpers — host apps should already define shadcn-style CSS variables:
-   --background, --foreground, --card, --card-foreground, --muted, --muted-foreground,
-   --primary, --primary-foreground, --border, --destructive
+/*
+  @careernav/suite-shell — host-safe styles
+
+  - No Tailwind Preflight (host owns page reset)
+  - Utilities compiled with important: '.cn-suite-root' (won't restyle the host page)
+  - Colors/radius read host CSS variables (--primary, --card, --border, …)
 */
+
+@tailwind utilities;
+
+.cn-suite-root {
+  font-family: inherit;
+  line-height: 1.5;
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+.cn-suite-root *,
+.cn-suite-root *::before,
+.cn-suite-root *::after {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+/* Neutralize host button/link chrome inside the suite shell only */
+.cn-suite-root button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.cn-suite-root a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .cn-suite-header {
   --cn-suite-radius: 1rem;
 }

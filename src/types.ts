@@ -24,6 +24,8 @@ export type SuiteUser = {
 export type SuiteNavItem = {
   to: string;
   label: string;
+  /** When true, only exact path matches (default: prefix match for nested routes) */
+  end?: boolean;
 };
 
 export type SuiteLinkProps = {
@@ -49,6 +51,8 @@ export type SuiteHeaderProps = {
   productId: SuiteProductId;
   /** Display name in Suite / Name (defaults from product catalog) */
   productName?: string;
+  /** Letter in the brand mark (defaults to first letter of product name) */
+  productInitial?: string;
   navItems?: SuiteNavItem[];
   user?: SuiteUser | null;
   isAuthenticated?: boolean;
