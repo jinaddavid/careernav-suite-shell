@@ -17,7 +17,7 @@ Shared CareerNav suite chrome: pill header, Product Suite waffle, SSO URL helper
 ```
 
 ```bash
-npm install @careernav/suite-shell@0.1.0
+npm install @careernav/suite-shell@0.1.1
 ```
 
 **Git dependency (Vercel-friendly):**
@@ -66,4 +66,4 @@ NODE_AUTH_TOKEN=<pat-with-write:packages> npm publish
 
 Requires a GitHub PAT with `write:packages`, and the `@careernav` scope must map to a GitHub org/user that owns this repo.
 
-Until Packages publish is available, install via the **git dependency** (`#v0.1.0`) above — that works for Vercel without an npm registry.
+Until Packages publish is available, install via the **git dependency** (`#v0.1.1`) above — that works for Vercel without an npm registry. `dist/` is committed so git installs do not need a local build.
