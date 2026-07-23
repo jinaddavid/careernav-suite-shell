@@ -10,40 +10,42 @@ export default {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      // Use --cn-* tokens (set on .cn-suite-root) so hex hosts (Live) and
+      // hsl-channel hosts (Lab/Studio/Gym) can both bridge without conflict.
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--cn-bg)",
+        foreground: "var(--cn-fg)",
         card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
+          DEFAULT: "var(--cn-card)",
+          foreground: "var(--cn-card-fg)",
         },
         popover: {
-          DEFAULT: "var(--popover, var(--card))",
-          foreground: "var(--popover-foreground, var(--card-foreground))",
+          DEFAULT: "var(--cn-card)",
+          foreground: "var(--cn-card-fg)",
         },
         primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
+          DEFAULT: "var(--cn-primary)",
+          foreground: "var(--cn-primary-fg)",
         },
         secondary: {
-          DEFAULT: "var(--secondary, var(--muted))",
-          foreground: "var(--secondary-foreground, var(--foreground))",
+          DEFAULT: "var(--cn-muted)",
+          foreground: "var(--cn-fg)",
         },
         muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
+          DEFAULT: "var(--cn-muted)",
+          foreground: "var(--cn-muted-fg)",
         },
         accent: {
-          DEFAULT: "var(--accent, var(--muted))",
-          foreground: "var(--accent-foreground, var(--foreground))",
+          DEFAULT: "var(--cn-muted)",
+          foreground: "var(--cn-fg)",
         },
         destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground, var(--primary-foreground))",
+          DEFAULT: "var(--cn-destructive)",
+          foreground: "var(--cn-primary-fg)",
         },
-        border: "var(--border)",
-        input: "var(--input, var(--border))",
-        ring: "var(--ring, var(--primary))",
+        border: "var(--cn-border)",
+        input: "var(--cn-border)",
+        ring: "var(--cn-primary)",
       },
       borderRadius: {
         lg: "var(--radius, 0.5rem)",

@@ -3,23 +3,54 @@
 
   - No Tailwind Preflight (host owns page reset)
   - Utilities compiled with important: '.cn-suite-root' (won't restyle the host page)
-  - Colors/radius read host CSS variables (--primary, --card, --border, …)
+  - Portaled menus MUST also have class "cn-suite-root"
+  - Colors read --cn-* tokens; hosts bridge hsl(var(--x)) or hex var(--x) → --cn-*
 */
 
 @tailwind utilities;
 
 .cn-suite-root {
+  /* Defaults (overridden by host bridge rules below / app CSS) */
+  --cn-bg: #ffffff;
+  --cn-fg: #171e2e;
+  --cn-card: #ffffff;
+  --cn-card-fg: #171e2e;
+  --cn-muted: #f4f4f5;
+  --cn-muted-fg: #71717a;
+  --cn-primary: #0d9488;
+  --cn-primary-fg: #f7f4ee;
+  --cn-border: #e4e4e7;
+  --cn-destructive: #ef4444;
+
   font-family: inherit;
   line-height: 1.5;
-  color: var(--foreground);
+  color: var(--cn-fg);
   -webkit-font-smoothing: antialiased;
+}
+
+/*
+  Auto-bridge for shadcn HSL-channel hosts (Lab, Studio, Gym):
+  --primary: 239 84% 67%  →  --cn-primary: hsl(239 84% 67%)
+  Hex hosts (Live) should set --cn-* explicitly (see app styles).
+*/
+.cn-suite-root {
+  --cn-bg: hsl(var(--background));
+  --cn-fg: hsl(var(--foreground));
+  --cn-card: hsl(var(--card));
+  --cn-card-fg: hsl(var(--card-foreground));
+  --cn-muted: hsl(var(--muted));
+  --cn-muted-fg: hsl(var(--muted-foreground));
+  --cn-primary: hsl(var(--primary));
+  --cn-primary-fg: hsl(var(--primary-foreground));
+  --cn-border: hsl(var(--border));
+  --cn-destructive: hsl(var(--destructive));
 }
 
 .cn-suite-root *,
 .cn-suite-root *::before,
 .cn-suite-root *::after {
   box-sizing: border-box;
-  border-color: var(--border);
+  border-color: var(--cn-border);
 }
 
 /* Neutralize host button/link chrome inside the suite shell only */

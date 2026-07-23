@@ -8,14 +8,22 @@ The package ships **its own** stylesheet (`@careernav/suite-shell/styles.css`):
 
 - **No Tailwind Preflight** — does not reset the host page
 - Utilities are compiled with `important: '.cn-suite-root'` — they only apply inside suite chrome
-- Colors/radius read the host’s CSS variables (`--primary`, `--card`, `--border`, …)
+- Colors use `--cn-*` tokens bridged from the host (see below)
 - Host apps **do not** need to scan this package in their Tailwind `content` / `@source`
+- **Portaled** menus (Product Suite, account) also carry `.cn-suite-root` so scoped styles still apply
 
 Always import the stylesheet once in the host:
 
 ```ts
 import "@careernav/suite-shell/styles.css";
 ```
+
+**Color bridge**
+
+| Host token style | What to do |
+|---|---|
+| shadcn HSL channels (`--primary: 239 84% 67%`) — Lab / Studio / Gym | Nothing — package maps `hsl(var(--primary))` → `--cn-primary` |
+| Hex / full colors (`--primary: #006a70`) — Live | Override `--cn-*` on `.cn-suite-root` (see Live `styles.css`) |
 
 ## Install
 
@@ -28,7 +36,7 @@ import "@careernav/suite-shell/styles.css";
 **Git dependency (Vercel-friendly):**
 
 ```json
-"@careernav/suite-shell": "github:jinaddavid/careernav-suite-shell#v0.1.3"
+"@careernav/suite-shell": "github:jinaddavid/careernav-suite-shell#v0.1.4"
 ```
 
 ## Usage

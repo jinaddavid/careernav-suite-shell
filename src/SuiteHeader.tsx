@@ -125,7 +125,7 @@ export function SuiteHeader({
     cn(
       "px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
       isActive
-        ? "bg-primary/10 text-primary"
+        ? "bg-muted text-primary"
         : "text-muted-foreground hover:text-foreground hover:bg-muted",
     );
 
@@ -133,7 +133,7 @@ export function SuiteHeader({
     cn(
       "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
       isActive
-        ? "bg-primary/10 text-primary"
+        ? "bg-muted text-primary"
         : "text-muted-foreground hover:text-foreground hover:bg-muted",
     );
 

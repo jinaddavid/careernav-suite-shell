@@ -26,7 +26,8 @@ var PopoverContent = React3.forwardRef(({ className, align = "center", sideOffse
       "div",
       {
         className: cn(
-          "z-[100] rounded-3xl border border-border bg-card text-card-foreground shadow-2xl outline-none",
+          // Portals mount on document.body — must carry cn-suite-root so scoped CSS applies
+          "cn-suite-root z-[100] rounded-3xl border border-border bg-card text-card-foreground shadow-2xl outline-none",
           className
         ),
         children
@@ -81,7 +82,8 @@ var DropdownMenuContent = React3.forwardRef(({ className, sideOffset = 4, childr
       "div",
       {
         className: cn(
-          "z-[100] min-w-[8rem] overflow-hidden rounded-2xl border border-border bg-card p-1 text-card-foreground shadow-xl",
+          // Portals mount on document.body — must carry cn-suite-root so scoped CSS applies
+          "cn-suite-root z-[100] min-w-[8rem] overflow-hidden rounded-2xl border border-border bg-card p-1 text-card-foreground shadow-xl",
           className
         ),
         children
@@ -389,11 +391,11 @@ function SuiteHeader({
   const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad|iPod/.test(navigator.platform);
   const navClass = ({ isActive }) => cn(
     "px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
-    isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+    isActive ? "bg-muted text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
   );
   const mobileNavClass = ({ isActive }) => cn(
     "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-    isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+    isActive ? "bg-muted text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
   );
   return /* @__PURE__ */ jsx(
     "header",

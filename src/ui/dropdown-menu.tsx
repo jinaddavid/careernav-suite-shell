@@ -17,10 +17,11 @@ export const DropdownMenuContent = React.forwardRef<
       {...props}
     >
       <div
-        className={cn(
-          "z-[100] min-w-[8rem] overflow-hidden rounded-2xl border border-border bg-card p-1 text-card-foreground shadow-xl",
-          className,
-        )}
+      className={cn(
+        // Portals mount on document.body — must carry cn-suite-root so scoped CSS applies
+        "cn-suite-root z-[100] min-w-[8rem] overflow-hidden rounded-2xl border border-border bg-card p-1 text-card-foreground shadow-xl",
+        className,
+      )}
       >
         {children}
       </div>
