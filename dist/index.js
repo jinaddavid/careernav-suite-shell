@@ -202,6 +202,8 @@ function AppSwitcher({
         "a",
         {
           href,
+          target: "_blank",
+          rel: "noopener noreferrer",
           onClick: onNavigate,
           className: cn(
             "cn-suite-tile",
