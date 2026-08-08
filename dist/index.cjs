@@ -312,6 +312,8 @@ function SuiteHeader({
   productId,
   productName,
   productInitial,
+  logoSrc,
+  logoAlt,
   navItems = [],
   user,
   isAuthenticated,
@@ -338,7 +340,14 @@ function SuiteHeader({
   const [mobileNavOpen, setMobileNavOpen] = React3.useState(false);
   const name = productName ?? productDisplayName(productId);
   const mark = (productInitial ?? name.charAt(0) ?? "C").toUpperCase();
+  const brandAlt = logoAlt ?? name;
   const authed = isAuthenticated ?? !!user;
+  const brandMark = logoSrc ? /* @__PURE__ */ jsxRuntime.jsx("img", { src: logoSrc, alt: brandAlt, className: "cn-suite-brand-logo" }) : /* @__PURE__ */ jsxRuntime.jsx("div", { className: "cn-suite-brand-mark", children: mark });
+  const brandCrumb = logoSrc ? null : /* @__PURE__ */ jsxRuntime.jsxs("nav", { className: "cn-suite-brand-crumb flex items-center text-sm font-semibold tracking-tight", children: [
+    /* @__PURE__ */ jsxRuntime.jsx("span", { className: "cn-suite-brand-suite hidden sm:inline", children: "Suite" }),
+    /* @__PURE__ */ jsxRuntime.jsx("span", { className: "cn-suite-brand-sep mx-2 hidden sm:inline", children: "/" }),
+    /* @__PURE__ */ jsxRuntime.jsx("span", { className: "cn-suite-brand-name", children: name })
+  ] });
   const initials = (user?.name || user?.email || "U").split(/[\s@]/).filter(Boolean).slice(0, 2).map((s) => s[0]?.toUpperCase()).join("");
   React3.useEffect(() => {
     if (!onSearchClick) return;
@@ -393,10 +402,17 @@ function SuiteHeader({
               ),
               /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "absolute left-0 top-0 bottom-0 w-72 bg-card border-r border-border p-6 shadow-xl", children: [
                 /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center justify-between mb-8", children: [
-                  /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
+                  /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex items-center gap-3 min-w-0", children: logoSrc ? /* @__PURE__ */ jsxRuntime.jsx(
+                    "img",
+                    {
+                      src: logoSrc,
+                      alt: brandAlt,
+                      className: "cn-suite-brand-logo"
+                    }
+                  ) : /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
                     /* @__PURE__ */ jsxRuntime.jsx("div", { className: "cn-suite-brand-mark", children: mark }),
                     /* @__PURE__ */ jsxRuntime.jsx("span", { className: "cn-suite-brand-name", children: name })
-                  ] }),
+                  ] }) }),
                   /* @__PURE__ */ jsxRuntime.jsx(
                     "button",
                     {
@@ -422,14 +438,18 @@ function SuiteHeader({
               ] })
             ] }) : null
           ] }) : null,
-          /* @__PURE__ */ jsxRuntime.jsxs(Link, { to: homeHref, className: "cn-suite-brand flex items-center space-x-3 group", children: [
-            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "cn-suite-brand-mark", children: mark }),
-            /* @__PURE__ */ jsxRuntime.jsxs("nav", { className: "cn-suite-brand-crumb flex items-center text-sm font-semibold tracking-tight", children: [
-              /* @__PURE__ */ jsxRuntime.jsx("span", { className: "cn-suite-brand-suite hidden sm:inline", children: "Suite" }),
-              /* @__PURE__ */ jsxRuntime.jsx("span", { className: "cn-suite-brand-sep mx-2 hidden sm:inline", children: "/" }),
-              /* @__PURE__ */ jsxRuntime.jsx("span", { className: "cn-suite-brand-name", children: name })
-            ] })
-          ] })
+          /* @__PURE__ */ jsxRuntime.jsxs(
+            Link,
+            {
+              to: homeHref,
+              className: "cn-suite-brand flex items-center space-x-3 group min-w-0",
+              "aria-label": brandAlt,
+              children: [
+                brandMark,
+                brandCrumb
+              ]
+            }
+          )
         ] }),
         navItems.length > 0 ? /* @__PURE__ */ jsxRuntime.jsx("nav", { className: "hidden lg:flex items-center gap-1 ml-4", children: navItems.map((item) => /* @__PURE__ */ jsxRuntime.jsx(
           NavLink,

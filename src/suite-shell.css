@@ -113,6 +113,15 @@
   color: var(--cn-product-fg) !important;
 }
 
+.cn-suite-root .cn-suite-brand-logo {
+  display: block;
+  height: 2rem;
+  width: auto;
+  max-width: min(11rem, 42vw);
+  object-fit: contain;
+  object-position: left center;
+}
+
 .cn-suite-root .cn-suite-brand-name {
   font-weight: 700;
   color: var(--cn-product) !important;

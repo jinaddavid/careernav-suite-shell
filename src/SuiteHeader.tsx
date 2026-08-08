@@ -70,6 +70,8 @@ export function SuiteHeader({
   productId,
   productName,
   productInitial,
+  logoSrc,
+  logoAlt,
   navItems = [],
   user,
   isAuthenticated,
@@ -96,7 +98,22 @@ export function SuiteHeader({
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const name = productName ?? productDisplayName(productId);
   const mark = (productInitial ?? name.charAt(0) ?? "C").toUpperCase();
+  const brandAlt = logoAlt ?? name;
   const authed = isAuthenticated ?? !!user;
+
+  const brandMark = logoSrc ? (
+    <img src={logoSrc} alt={brandAlt} className="cn-suite-brand-logo" />
+  ) : (
+    <div className="cn-suite-brand-mark">{mark}</div>
+  );
+
+  const brandCrumb = logoSrc ? null : (
+    <nav className="cn-suite-brand-crumb flex items-center text-sm font-semibold tracking-tight">
+      <span className="cn-suite-brand-suite hidden sm:inline">Suite</span>
+      <span className="cn-suite-brand-sep mx-2 hidden sm:inline">/</span>
+      <span className="cn-suite-brand-name">{name}</span>
+    </nav>
+  );
 
   const initials = (user?.name || user?.email || "U")
     .split(/[\s@]/)
@@ -163,9 +180,19 @@ export function SuiteHeader({
                   />
                   <div className="absolute left-0 top-0 bottom-0 w-72 bg-card border-r border-border p-6 shadow-xl">
                     <div className="flex items-center justify-between mb-8">
-                      <div className="flex items-center gap-3">
-                        <div className="cn-suite-brand-mark">{mark}</div>
-                        <span className="cn-suite-brand-name">{name}</span>
+                      <div className="flex items-center gap-3 min-w-0">
+                        {logoSrc ? (
+                          <img
+                            src={logoSrc}
+                            alt={brandAlt}
+                            className="cn-suite-brand-logo"
+                          />
+                        ) : (
+                          <>
+                            <div className="cn-suite-brand-mark">{mark}</div>
+                            <span className="cn-suite-brand-name">{name}</span>
+                          </>
+                        )}
                       </div>
                       <button
                         type="button"
@@ -195,13 +222,13 @@ export function SuiteHeader({
             </>
           ) : null}
 
-          <Link to={homeHref} className="cn-suite-brand flex items-center space-x-3 group">
-            <div className="cn-suite-brand-mark">{mark}</div>
-            <nav className="cn-suite-brand-crumb flex items-center text-sm font-semibold tracking-tight">
-              <span className="cn-suite-brand-suite hidden sm:inline">Suite</span>
-              <span className="cn-suite-brand-sep mx-2 hidden sm:inline">/</span>
-              <span className="cn-suite-brand-name">{name}</span>
-            </nav>
+          <Link
+            to={homeHref}
+            className="cn-suite-brand flex items-center space-x-3 group min-w-0"
+            aria-label={brandAlt}
+          >
+            {brandMark}
+            {brandCrumb}
           </Link>
         </div>
 

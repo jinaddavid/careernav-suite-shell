@@ -53,6 +53,13 @@ export type SuiteHeaderProps = {
   productName?: string;
   /** Letter in the brand mark (defaults to first letter of product name) */
   productInitial?: string;
+  /**
+   * Optional product wordmark/logo URL (e.g. `/logo.png`).
+   * When set, replaces the letter mark + “Suite / Name” crumb.
+   */
+  logoSrc?: string;
+  /** Alt text for logoSrc (defaults to product name) */
+  logoAlt?: string;
   navItems?: SuiteNavItem[];
   user?: SuiteUser | null;
   isAuthenticated?: boolean;
