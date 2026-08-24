@@ -20,7 +20,7 @@ export type SuiteProductDef = {
 
 export const SUITE_PRODUCTS: SuiteProductDef[] = [
   { id: "studio", name: "Studio", Icon: Headphones },
-  { id: "jobs", name: "Jobs", Icon: Briefcase, studioPath: "/jobs" },
+  { id: "jobs", name: "Pathfinder", Icon: Briefcase },
   { id: "lab", name: "Lab", Icon: FlaskConical },
   { id: "live", name: "Live", Icon: Radio },
   { id: "gym", name: "Gym", Icon: Dumbbell },
@@ -46,6 +46,9 @@ export function resolveProductHref(
     base = urls.live;
   } else if (product.id === "gym") {
     base = urls.gym;
+  } else if (product.id === "jobs") {
+    base =
+      urls.pathfinder?.replace(/\/$/, "") || "https://pathfinder.careernav.ai";
   } else if (product.studioPath) {
     base = urls.studio.replace(/\/$/, "") + product.studioPath;
   } else {

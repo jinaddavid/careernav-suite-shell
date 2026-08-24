@@ -13,6 +13,8 @@ export type SuiteProductUrls = {
   gym: string;
   lab: string;
   live: string;
+  /** Pathfinder app (suite catalog id remains "jobs") */
+  pathfinder?: string;
 };
 
 export type SuiteUser = {

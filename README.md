@@ -63,6 +63,7 @@ import { Link, NavLink } from "react-router-dom";
     gym: import.meta.env.VITE_GYM_URL,
     lab: import.meta.env.VITE_LAB_URL,
     live: import.meta.env.VITE_LIVE_URL,
+    pathfinder: import.meta.env.VITE_PATHFINDER_URL,
   }}
   getSsoToken={getCareernavAuthToken}
   accountSettingsHref="/account"

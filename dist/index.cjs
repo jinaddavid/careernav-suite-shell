@@ -180,7 +180,7 @@ function withSso(href, token) {
 // src/products.ts
 var SUITE_PRODUCTS = [
   { id: "studio", name: "Studio", Icon: lucideReact.Headphones },
-  { id: "jobs", name: "Jobs", Icon: lucideReact.Briefcase, studioPath: "/jobs" },
+  { id: "jobs", name: "Pathfinder", Icon: lucideReact.Briefcase },
   { id: "lab", name: "Lab", Icon: lucideReact.FlaskConical },
   { id: "live", name: "Live", Icon: lucideReact.Radio },
   { id: "gym", name: "Gym", Icon: lucideReact.Dumbbell },
@@ -199,6 +199,8 @@ function resolveProductHref(product, urls, token) {
     base = urls.live;
   } else if (product.id === "gym") {
     base = urls.gym;
+  } else if (product.id === "jobs") {
+    base = urls.pathfinder?.replace(/\/$/, "") || "https://pathfinder.careernav.ai";
   } else if (product.studioPath) {
     base = urls.studio.replace(/\/$/, "") + product.studioPath;
   } else {

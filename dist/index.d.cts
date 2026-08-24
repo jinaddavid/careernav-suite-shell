@@ -8,6 +8,8 @@ type SuiteProductUrls = {
     gym: string;
     lab: string;
     live: string;
+    /** Pathfinder app (suite catalog id remains "jobs") */
+    pathfinder?: string;
 };
 type SuiteUser = {
     name?: string | null;
