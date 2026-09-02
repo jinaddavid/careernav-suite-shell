@@ -17,8 +17,8 @@
   --cn-card-fg: #171e2e;
   --cn-muted: #f4f4f5;
   --cn-muted-fg: #71717a;
-  --cn-primary: #0d9488;
-  --cn-primary-fg: #f7f4ee;
+  --cn-primary: #096a6a;
+  --cn-primary-fg: #ffffff;
   --cn-border: #e4e4e7;
   --cn-destructive: #ef4444;
 
@@ -79,24 +79,30 @@
 }
 
 .cn-suite-header--studio {
-  --cn-product: #0d9488;
+  --cn-product: #096a6a;
   --cn-product-fg: #ffffff;
-  --cn-product-soft: #f0fdfa;
+  --cn-product-soft: #d5e9e8;
 }
 .cn-suite-header--lab {
-  --cn-product: #9333ea;
+  --cn-product: #2f2e4a;
   --cn-product-fg: #ffffff;
-  --cn-product-soft: #faf5ff;
+  --cn-product-soft: #e8e8ed;
 }
 .cn-suite-header--live {
-  --cn-product: #e11d48;
-  --cn-product-fg: #ffffff;
-  --cn-product-soft: #fff1f2;
+  --cn-product: #4db2b2;
+  --cn-product-fg: #1b1b2b;
+  --cn-product-soft: #d5e9e8;
 }
 .cn-suite-header--gym {
-  --cn-product: #ea580c;
+  --cn-product: #096a6a;
   --cn-product-fg: #ffffff;
-  --cn-product-soft: #fff7ed;
+  --cn-product-soft: #d5e9e8;
+}
+.cn-suite-header--pathfinder,
+.cn-suite-header--jobs {
+  --cn-product: #2f2e4a;
+  --cn-product-fg: #ffffff;
+  --cn-product-soft: #e8e8ed;
 }
 
 .cn-suite-root .cn-suite-brand-mark {
@@ -261,35 +267,36 @@
 }
 
 /* Per-product palette (fixed hex — immune to host .bg-purple-50 / .text-primary) */
+/* Per-product palette — EvolvedWork Teal / Indigo / Aqua only */
 .cn-suite-root .cn-suite-tile--studio {
-  --cn-tile-icon: #0d9488;
-  --cn-tile-soft: #f0fdfa;
-  --cn-tile-ring: #14b8a6;
+  --cn-tile-icon: #096a6a;
+  --cn-tile-soft: #d5e9e8;
+  --cn-tile-ring: #096a6a;
 }
 .cn-suite-root .cn-suite-tile--jobs {
-  --cn-tile-icon: #2563eb;
-  --cn-tile-soft: #eff6ff;
-  --cn-tile-ring: #3b82f6;
+  --cn-tile-icon: #2f2e4a;
+  --cn-tile-soft: #e8e8ed;
+  --cn-tile-ring: #2f2e4a;
 }
 .cn-suite-root .cn-suite-tile--lab {
-  --cn-tile-icon: #9333ea;
-  --cn-tile-soft: #faf5ff;
-  --cn-tile-ring: #a855f7;
+  --cn-tile-icon: #2f2e4a;
+  --cn-tile-soft: #e8e8ed;
+  --cn-tile-ring: #4db2b2;
 }
 .cn-suite-root .cn-suite-tile--live {
-  --cn-tile-icon: #e11d48;
-  --cn-tile-soft: #fff1f2;
-  --cn-tile-ring: #f43f5e;
+  --cn-tile-icon: #4db2b2;
+  --cn-tile-soft: #d5e9e8;
+  --cn-tile-ring: #4db2b2;
 }
 .cn-suite-root .cn-suite-tile--gym {
-  --cn-tile-icon: #ea580c;
-  --cn-tile-soft: #fff7ed;
-  --cn-tile-ring: #f97316;
+  --cn-tile-icon: #096a6a;
+  --cn-tile-soft: #d5e9e8;
+  --cn-tile-ring: #096a6a;
 }
 .cn-suite-root .cn-suite-tile--my-paths {
-  --cn-tile-icon: #059669;
-  --cn-tile-soft: #ecfdf5;
-  --cn-tile-ring: #10b981;
+  --cn-tile-icon: #4db2b2;
+  --cn-tile-soft: #d5e9e8;
+  --cn-tile-ring: #4db2b2;
 }
 
 .cn-suite-root .cn-suite-tile:hover .cn-suite-tile__icon-wrap {
