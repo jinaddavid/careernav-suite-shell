@@ -25,7 +25,7 @@ export const PopoverContent = React.forwardRef<
       <div
       className={cn(
         // Portals mount on document.body — must carry cn-suite-root so scoped CSS applies
-        "cn-suite-root z-[100] rounded-3xl border border-border bg-card text-card-foreground shadow-2xl outline-none",
+        "cn-suite-root cn-suite-popover-surface z-[100] rounded-3xl border border-border bg-card text-card-foreground shadow-2xl outline-none",
         className,
       )}
       >

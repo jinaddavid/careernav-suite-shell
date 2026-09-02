@@ -88,6 +88,7 @@ export function SuiteHeader({
   loginHref = "/login",
   homeHref = "/",
   showThemeToggle = true,
+  colorTokens = "hsl",
   theme,
   onThemeToggle,
   className,
@@ -98,6 +99,7 @@ export function SuiteHeader({
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const name = productName ?? productDisplayName(productId);
   const mark = (productInitial ?? name.charAt(0) ?? "C").toUpperCase();
+  const tokenClass = colorTokens === "hsl" ? "cn-suite-hsl-tokens" : undefined;
   const brandAlt = logoAlt ?? name;
   const authed = isAuthenticated ?? !!user;
 
@@ -155,6 +157,7 @@ export function SuiteHeader({
       className={cn(
         "cn-suite-root cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
         `cn-suite-header--${productId}`,
+        tokenClass,
         className,
       )}
     >
@@ -297,7 +300,10 @@ export function SuiteHeader({
             <PopoverContent
               align="end"
               sideOffset={10}
-              className="p-0 w-auto rounded-3xl shadow-2xl border border-border"
+              className={cn(
+                "p-0 w-auto rounded-3xl shadow-2xl border border-border",
+                tokenClass,
+              )}
             >
               <AppSwitcher
                 productId={productId}
@@ -335,7 +341,10 @@ export function SuiteHeader({
             <DropdownMenuContent
               align="end"
               sideOffset={10}
-              className="w-56 rounded-2xl shadow-xl border border-border p-2"
+              className={cn(
+                "cn-suite-popover-surface w-56 rounded-2xl shadow-xl border border-border p-2",
+                tokenClass,
+              )}
             >
               {authed ? (
                 <>

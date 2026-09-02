@@ -51,7 +51,7 @@ var PopoverContent = React3__namespace.forwardRef(({ className, align = "center"
       {
         className: cn(
           // Portals mount on document.body — must carry cn-suite-root so scoped CSS applies
-          "cn-suite-root z-[100] rounded-3xl border border-border bg-card text-card-foreground shadow-2xl outline-none",
+          "cn-suite-root cn-suite-popover-surface z-[100] rounded-3xl border border-border bg-card text-card-foreground shadow-2xl outline-none",
           className
         ),
         children
@@ -332,6 +332,7 @@ function SuiteHeader({
   loginHref = "/login",
   homeHref = "/",
   showThemeToggle = true,
+  colorTokens = "hsl",
   theme,
   onThemeToggle,
   className
@@ -342,6 +343,7 @@ function SuiteHeader({
   const [mobileNavOpen, setMobileNavOpen] = React3.useState(false);
   const name = productName ?? productDisplayName(productId);
   const mark = (productInitial ?? name.charAt(0) ?? "C").toUpperCase();
+  const tokenClass = colorTokens === "hsl" ? "cn-suite-hsl-tokens" : void 0;
   const brandAlt = logoAlt ?? name;
   const authed = isAuthenticated ?? !!user;
   const brandMark = logoSrc ? /* @__PURE__ */ jsxRuntime.jsx("img", { src: logoSrc, alt: brandAlt, className: "cn-suite-brand-logo" }) : /* @__PURE__ */ jsxRuntime.jsx("div", { className: "cn-suite-brand-mark", children: mark });
@@ -377,6 +379,7 @@ function SuiteHeader({
       className: cn(
         "cn-suite-root cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
         `cn-suite-header--${productId}`,
+        tokenClass,
         className
       ),
       children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mx-auto max-w-7xl flex items-center justify-between h-16 px-3 md:px-6 bg-card text-card-foreground border border-border rounded-2xl shadow-sm", children: [
@@ -507,7 +510,10 @@ function SuiteHeader({
               {
                 align: "end",
                 sideOffset: 10,
-                className: "p-0 w-auto rounded-3xl shadow-2xl border border-border",
+                className: cn(
+                  "p-0 w-auto rounded-3xl shadow-2xl border border-border",
+                  tokenClass
+                ),
                 children: /* @__PURE__ */ jsxRuntime.jsx(
                   AppSwitcher,
                   {
@@ -550,7 +556,10 @@ function SuiteHeader({
               {
                 align: "end",
                 sideOffset: 10,
-                className: "w-56 rounded-2xl shadow-xl border border-border p-2",
+                className: cn(
+                  "cn-suite-popover-surface w-56 rounded-2xl shadow-xl border border-border p-2",
+                  tokenClass
+                ),
                 children: authed ? /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
                   /* @__PURE__ */ jsxRuntime.jsxs(DropdownMenuLabel, { className: "px-2 py-1.5", children: [
                     /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-sm font-semibold text-foreground truncate", children: user?.name || "User" }),

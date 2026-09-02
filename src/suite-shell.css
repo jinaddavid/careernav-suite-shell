@@ -29,11 +29,11 @@
 }
 
 /*
-  Auto-bridge for shadcn HSL-channel hosts (Lab, Studio, Gym):
-  --primary: 239 84% 67%  →  --cn-primary: hsl(239 84% 67%)
-  Hex hosts (Live) should set --cn-* explicitly (see app styles).
+  HSL-channel hosts (Studio/Lab/Gym: --card: 0 0% 100%) must opt in.
+  Hex hosts (Live: --card: #ffffff) must NOT use this — hsl(#fff) is invalid
+  and makes the product switcher transparent.
 */
-.cn-suite-root {
+.cn-suite-root.cn-suite-hsl-tokens {
   --cn-bg: hsl(var(--background));
   --cn-fg: hsl(var(--foreground));
   --cn-card: hsl(var(--card));
@@ -170,8 +170,26 @@
 /* ── Product Suite switcher (no shared Tailwind color utilities) ── */
 
 .cn-suite-root .cn-suite-switcher {
-  width: 20rem;
+  width: min(20rem, calc(100vw - 2rem));
   padding: 1.5rem;
+  /* Opaque by default — never rely on a possibly-invalid --cn-card */
+  background-color: #ffffff;
+  color: #171e2e;
+  border-radius: 1.5rem;
+}
+
+.cn-suite-root.cn-suite-popover-surface,
+.cn-suite-root .cn-suite-popover-surface {
+  background-color: #ffffff !important;
+  color: #171e2e !important;
+}
+
+/* Themeable surfaces only when HSL-channel tokens are opted in */
+.cn-suite-root.cn-suite-hsl-tokens .cn-suite-switcher,
+.cn-suite-root.cn-suite-hsl-tokens.cn-suite-popover-surface,
+.cn-suite-root.cn-suite-hsl-tokens .cn-suite-popover-surface {
+  background-color: var(--cn-card) !important;
+  color: var(--cn-card-fg) !important;
 }
 
 .cn-suite-root .cn-suite-switcher__head {

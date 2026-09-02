@@ -73,13 +73,20 @@ type SuiteHeaderProps = {
     loginHref?: string;
     homeHref?: string;
     showThemeToggle?: boolean;
+    /**
+     * How host CSS color tokens are encoded.
+     * - `hsl` — shadcn channel tokens (`--card: 0 0% 100%`) — Studio/Lab/Gym/Pathfinder
+     * - `hex` — full colors (`--card: #ffffff`) — Live
+     * Default `hsl`. Using `hsl` on a hex host makes the product switcher transparent.
+     */
+    colorTokens?: "hsl" | "hex";
     /** Dark mode controlled externally; called when user toggles */
     theme?: "light" | "dark";
     onThemeToggle?: () => void;
     className?: string;
 };
 
-declare function SuiteHeader({ productId, productName, productInitial, logoSrc, logoAlt, navItems, user, isAuthenticated, onLogout, onLoginClick, onSearchClick, searchPlaceholder, Link: LinkComp, NavLink: NavLinkComp, productUrls, getSsoToken, accountSettingsHref, accountLabel, loginHref, homeHref, showThemeToggle, theme, onThemeToggle, className, }: SuiteHeaderProps): react.JSX.Element;
+declare function SuiteHeader({ productId, productName, productInitial, logoSrc, logoAlt, navItems, user, isAuthenticated, onLogout, onLoginClick, onSearchClick, searchPlaceholder, Link: LinkComp, NavLink: NavLinkComp, productUrls, getSsoToken, accountSettingsHref, accountLabel, loginHref, homeHref, showThemeToggle, colorTokens, theme, onThemeToggle, className, }: SuiteHeaderProps): react.JSX.Element;
 
 type Props$1 = {
     productId: SuiteProductId;

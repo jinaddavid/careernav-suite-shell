@@ -82,6 +82,13 @@ export type SuiteHeaderProps = {
   loginHref?: string;
   homeHref?: string;
   showThemeToggle?: boolean;
+  /**
+   * How host CSS color tokens are encoded.
+   * - `hsl` — shadcn channel tokens (`--card: 0 0% 100%`) — Studio/Lab/Gym/Pathfinder
+   * - `hex` — full colors (`--card: #ffffff`) — Live
+   * Default `hsl`. Using `hsl` on a hex host makes the product switcher transparent.
+   */
+  colorTokens?: "hsl" | "hex";
   /** Dark mode controlled externally; called when user toggles */
   theme?: "light" | "dark";
   onThemeToggle?: () => void;
