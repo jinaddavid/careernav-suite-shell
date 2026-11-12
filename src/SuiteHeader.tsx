@@ -13,6 +13,7 @@ import {
 import { AppSwitcher } from "./AppSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { productDisplayName } from "./products";
+import { withSso } from "./sso";
 import { cn } from "./cn";
 import type {
   SuiteHeaderProps,
@@ -66,6 +67,17 @@ function DefaultNavLink({
   );
 }
 
+const DEFAULT_VERIFY_HREF = "https://www.careernav.ai/verify";
+const VERIFY_DISMISS_KEY = "cn-suite-verify-dismissed";
+
+function readDismissed(): boolean {
+  try {
+    return sessionStorage.getItem(VERIFY_DISMISS_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
 export function SuiteHeader({
   productId,
   productName,
@@ -84,6 +96,7 @@ export function SuiteHeader({
   productUrls,
   getSsoToken,
   accountSettingsHref,
+  verifyHref = DEFAULT_VERIFY_HREF,
   accountLabel,
   loginHref = "/login",
   homeHref = "/",
@@ -102,6 +115,16 @@ export function SuiteHeader({
   const tokenClass = colorTokens === "hsl" ? "cn-suite-hsl-tokens" : undefined;
   const brandAlt = logoAlt ?? name;
   const authed = isAuthenticated ?? !!user;
+  const [verifyDismissed, setVerifyDismissed] = useState(readDismissed);
+  const showVerify = authed && user?.emailVerified === false && !verifyDismissed;
+  const dismissVerify = () => {
+    setVerifyDismissed(true);
+    try {
+      sessionStorage.setItem(VERIFY_DISMISS_KEY, "1");
+    } catch {
+      /* private mode: it just comes back next visit */
+    }
+  };
 
   const brandMark = logoSrc ? (
     <img src={logoSrc} alt={brandAlt} className="cn-suite-brand-logo" />
@@ -161,6 +184,17 @@ export function SuiteHeader({
         className,
       )}
     >
+      {showVerify ? (
+        <div className="cn-suite-verify mx-auto max-w-7xl mb-2 flex items-center justify-center gap-2 rounded-full px-3 py-1 text-xs" role="status">
+          <span>Verify your account to unlock referral rewards.</span>
+          <a href={withSso(verifyHref, getSsoToken?.())} className="cn-suite-verify-link font-semibold underline underline-offset-2">
+            Verify now
+          </a>
+          <button type="button" className="cn-suite-verify-close ml-1 rounded-full p-0.5" aria-label="Hide for now" onClick={dismissVerify}>
+            <X className="w-3 h-3" />
+          </button>
+        </div>
+      ) : null}
       <div className="mx-auto max-w-7xl flex items-center justify-between h-16 px-3 md:px-6 bg-card text-card-foreground border border-border rounded-2xl shadow-sm">
         <div className="flex items-center gap-1.5 shrink-0">
           {navItems.length > 0 ? (

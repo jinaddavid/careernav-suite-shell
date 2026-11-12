@@ -21,6 +21,8 @@ export type SuiteUser = {
   name?: string | null;
   email?: string | null;
   avatarUrl?: string | null;
+  /** When exactly `false`, the header shows a slim "Verify your account" strip. Leave undefined if unknown. */
+  emailVerified?: boolean | null;
 };
 
 export type SuiteNavItem = {
@@ -78,6 +80,8 @@ export type SuiteHeaderProps = {
   /** Return JWT for ?sso= when navigating cross-origin */
   getSsoToken?: () => string | null | undefined;
   accountSettingsHref?: string;
+  /** Where the "Verify" strip sends people. Defaults to the one shared page on the main site. */
+  verifyHref?: string;
   accountLabel?: string;
   loginHref?: string;
   homeHref?: string;

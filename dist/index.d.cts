@@ -15,6 +15,8 @@ type SuiteUser = {
     name?: string | null;
     email?: string | null;
     avatarUrl?: string | null;
+    /** When exactly `false`, the header shows a slim "Verify your account" strip. Leave undefined if unknown. */
+    emailVerified?: boolean | null;
 };
 type SuiteNavItem = {
     to: string;
@@ -69,6 +71,8 @@ type SuiteHeaderProps = {
     /** Return JWT for ?sso= when navigating cross-origin */
     getSsoToken?: () => string | null | undefined;
     accountSettingsHref?: string;
+    /** Where the "Verify" strip sends people. Defaults to the one shared page on the main site. */
+    verifyHref?: string;
     accountLabel?: string;
     loginHref?: string;
     homeHref?: string;
@@ -86,7 +90,7 @@ type SuiteHeaderProps = {
     className?: string;
 };
 
-declare function SuiteHeader({ productId, productName, productInitial, logoSrc, logoAlt, navItems, user, isAuthenticated, onLogout, onLoginClick, onSearchClick, searchPlaceholder, Link: LinkComp, NavLink: NavLinkComp, productUrls, getSsoToken, accountSettingsHref, accountLabel, loginHref, homeHref, showThemeToggle, colorTokens, theme, onThemeToggle, className, }: SuiteHeaderProps): react.JSX.Element;
+declare function SuiteHeader({ productId, productName, productInitial, logoSrc, logoAlt, navItems, user, isAuthenticated, onLogout, onLoginClick, onSearchClick, searchPlaceholder, Link: LinkComp, NavLink: NavLinkComp, productUrls, getSsoToken, accountSettingsHref, verifyHref, accountLabel, loginHref, homeHref, showThemeToggle, colorTokens, theme, onThemeToggle, className, }: SuiteHeaderProps): react.JSX.Element;
 
 type Props$1 = {
     productId: SuiteProductId;
