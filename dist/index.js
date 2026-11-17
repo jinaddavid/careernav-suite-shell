@@ -259,7 +259,7 @@ function ThemeToggle({ theme = "light", onToggle }) {
     {
       type: "button",
       onClick: onToggle,
-      className: "p-2 rounded-full hover:bg-muted text-muted-foreground transition-colors",
+      className: "cn-suite-icon-btn",
       "aria-label": theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
       children: theme === "dark" ? /* @__PURE__ */ jsx(Sun, { className: "w-5 h-5" }) : /* @__PURE__ */ jsx(Moon, { className: "w-5 h-5" })
     }
@@ -372,7 +372,7 @@ function SuiteHeader({
     "header",
     {
       className: cn(
-        "cn-suite-root cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
+        "cn-suite-root cn-suite-header",
         `cn-suite-header--${productId}`,
         tokenClass,
         className
@@ -383,7 +383,7 @@ function SuiteHeader({
           /* @__PURE__ */ jsx("a", { href: withSso(verifyHref, getSsoToken?.()), className: "cn-suite-verify-link font-semibold underline underline-offset-2", children: "Verify now" }),
           /* @__PURE__ */ jsx("button", { type: "button", className: "cn-suite-verify-close ml-1 rounded-full p-0.5", "aria-label": "Hide for now", onClick: dismissVerify, children: /* @__PURE__ */ jsx(X, { className: "w-3 h-3" }) })
         ] }) : null,
-        /* @__PURE__ */ jsxs("div", { className: "mx-auto max-w-7xl flex items-center justify-between h-16 px-3 md:px-6 bg-card text-card-foreground border border-border rounded-2xl shadow-sm", children: [
+        /* @__PURE__ */ jsxs("div", { className: "cn-suite-bar", children: [
           /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-1.5 shrink-0", children: [
             navItems.length > 0 ? /* @__PURE__ */ jsxs(Fragment, { children: [
               /* @__PURE__ */ jsx(
@@ -501,7 +501,7 @@ function SuiteHeader({
                 "button",
                 {
                   type: "button",
-                  className: "p-2 rounded-full hover:bg-muted text-muted-foreground transition-colors data-[state=open]:bg-muted",
+                  className: "cn-suite-icon-btn",
                   "aria-label": "Open app switcher",
                   children: /* @__PURE__ */ jsx(Grid3x3, { className: "w-5 h-5" })
                 }
@@ -531,25 +531,22 @@ function SuiteHeader({
               )
             ] }),
             /* @__PURE__ */ jsxs(DropdownMenu, { children: [
-              /* @__PURE__ */ jsx(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs(
+              /* @__PURE__ */ jsx(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsx(
                 "button",
                 {
                   type: "button",
-                  className: "relative ml-1 overflow-hidden rounded-full ring-2 ring-card shadow-sm focus:outline-none",
+                  className: "cn-suite-avatar-btn",
                   "aria-label": "Account menu",
-                  children: [
-                    /* @__PURE__ */ jsxs(Avatar, { className: "w-8 h-8", children: [
-                      /* @__PURE__ */ jsx(
-                        AvatarImage,
-                        {
-                          src: user?.avatarUrl || void 0,
-                          alt: user?.name || "User"
-                        }
-                      ),
-                      /* @__PURE__ */ jsx(AvatarFallback, { className: "text-xs font-semibold bg-primary text-primary-foreground", children: initials || "U" })
-                    ] }),
-                    authed ? /* @__PURE__ */ jsx("span", { className: "absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-card bg-primary" }) : null
-                  ]
+                  children: /* @__PURE__ */ jsxs(Avatar, { className: "cn-suite-avatar", children: [
+                    /* @__PURE__ */ jsx(
+                      AvatarImage,
+                      {
+                        src: user?.avatarUrl || void 0,
+                        alt: user?.name || "User"
+                      }
+                    ),
+                    /* @__PURE__ */ jsx(AvatarFallback, { className: "cn-suite-avatar-fallback", children: initials || "U" })
+                  ] })
                 }
               ) }),
               /* @__PURE__ */ jsx(
