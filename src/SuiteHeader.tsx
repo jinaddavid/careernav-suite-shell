@@ -178,7 +178,7 @@ export function SuiteHeader({
   return (
     <header
       className={cn(
-        "cn-suite-root cn-suite-header sticky top-0 z-50 w-full px-3 md:px-6 pt-3",
+        "cn-suite-root cn-suite-header",
         `cn-suite-header--${productId}`,
         tokenClass,
         className,
@@ -195,7 +195,7 @@ export function SuiteHeader({
           </button>
         </div>
       ) : null}
-      <div className="mx-auto max-w-7xl flex items-center justify-between h-16 px-3 md:px-6 bg-card text-card-foreground border border-border rounded-2xl shadow-sm">
+      <div className="cn-suite-bar">
         <div className="flex items-center gap-1.5 shrink-0">
           {navItems.length > 0 ? (
             <>
@@ -325,7 +325,7 @@ export function SuiteHeader({
             <PopoverTrigger asChild>
               <button
                 type="button"
-                className="p-2 rounded-full hover:bg-muted text-muted-foreground transition-colors data-[state=open]:bg-muted"
+                className="cn-suite-icon-btn"
                 aria-label="Open app switcher"
               >
                 <Grid3x3 className="w-5 h-5" />
@@ -355,21 +355,18 @@ export function SuiteHeader({
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="relative ml-1 overflow-hidden rounded-full ring-2 ring-card shadow-sm focus:outline-none"
+                className="cn-suite-avatar-btn"
                 aria-label="Account menu"
               >
-                <Avatar className="w-8 h-8">
+                <Avatar className="cn-suite-avatar">
                   <AvatarImage
                     src={user?.avatarUrl || undefined}
                     alt={user?.name || "User"}
                   />
-                  <AvatarFallback className="text-xs font-semibold bg-primary text-primary-foreground">
+                  <AvatarFallback className="cn-suite-avatar-fallback">
                     {initials || "U"}
                   </AvatarFallback>
                 </Avatar>
-                {authed ? (
-                  <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-card bg-primary" />
-                ) : null}
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent

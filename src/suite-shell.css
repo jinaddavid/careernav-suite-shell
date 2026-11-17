@@ -402,3 +402,122 @@
 }
 .dark .cn-suite-root .cn-suite-verify-link,
 .dark .cn-suite-root .cn-suite-verify-close { color: #fde68a; }
+
+
+/* ── Header: the PM prototype ──────────────────────────────────────────────
+   A flat, full-width bar with a hairline under it, a small pill nav, and round
+   outlined icon buttons. Every product gets the same bar; only the logo and
+   nav items differ. Colors come from the --cn-* tokens so hex and hsl hosts both work. */
+
+.cn-suite-root.cn-suite-header {
+  /* Neutral accent: the active nav pill is a soft card, not a product color. */
+  --cn-product: var(--cn-fg);
+  --cn-product-fg: var(--cn-bg);
+  --cn-product-soft: var(--cn-card);
+  --cn-avatar-bg: #3b8d90;
+  --cn-avatar-fg: #ffffff;
+
+  /* Stated here, not left to a utility class: without a position the blur layer below
+     would stretch over the whole page. */
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  padding: 0;
+  border-bottom: 1px solid var(--cn-border);
+  isolation: isolate;
+}
+.dark .cn-suite-root.cn-suite-header {
+  --cn-avatar-bg: #8ed6d6;
+  --cn-avatar-fg: #142b2c;
+}
+
+/* The blurred background sits on its own layer. A backdrop-filter on the header itself would make
+   the mobile side menu (position: fixed) size itself to the header bar instead of the screen. */
+.cn-suite-root.cn-suite-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--cn-bg) 92%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.cn-suite-root .cn-suite-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1160px, calc(100% - 40px));
+  height: 76px;
+  margin: 0 auto;
+  color: var(--cn-fg);
+}
+@media (max-width: 540px) {
+  .cn-suite-root .cn-suite-bar {
+    width: calc(100% - 28px);
+    height: 68px;
+  }
+}
+
+.cn-suite-root.cn-suite-header .cn-suite-nav-link {
+  padding: 10px 13px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.cn-suite-root.cn-suite-header .cn-suite-nav-link--active {
+  font-weight: 500;
+  box-shadow: 0 2px 12px rgb(32 31 46 / 0.06);
+}
+
+/* Theme toggle and app switcher: 42px round outlined buttons. */
+.cn-suite-root .cn-suite-icon-btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-left: 0.25rem;
+  border: 1px solid var(--cn-border);
+  border-radius: 9999px;
+  background: var(--cn-card);
+  color: var(--cn-fg);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.cn-suite-root .cn-suite-icon-btn:hover,
+.cn-suite-root .cn-suite-icon-btn[data-state="open"] {
+  background: var(--cn-muted);
+}
+.cn-suite-root .cn-suite-icon-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Account: a 42px teal round avatar, no status dot. */
+.cn-suite-root .cn-suite-avatar-btn {
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin-left: 0.25rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  outline: none;
+}
+.cn-suite-root .cn-suite-avatar-btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--cn-bg), 0 0 0 4px var(--cn-border);
+}
+.cn-suite-root .cn-suite-avatar {
+  width: 42px;
+  height: 42px;
+}
+.cn-suite-root .cn-suite-avatar-fallback {
+  background: var(--cn-avatar-bg, #3b8d90);
+  color: var(--cn-avatar-fg, #ffffff);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* The "verify your account" strip sits inside the bar's width. */
+.cn-suite-root.cn-suite-header .cn-suite-verify {
+  width: min(1160px, calc(100% - 40px));
+  margin: 8px auto 0;
+}

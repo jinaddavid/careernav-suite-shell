@@ -11,7 +11,7 @@ export function ThemeToggle({ theme = "light", onToggle }: Props) {
     <button
       type="button"
       onClick={onToggle}
-      className="p-2 rounded-full hover:bg-muted text-muted-foreground transition-colors"
+      className="cn-suite-icon-btn"
       aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
     >
       {theme === "dark" ? (
