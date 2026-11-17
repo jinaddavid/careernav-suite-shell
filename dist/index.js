@@ -1,6 +1,6 @@
 import * as React3 from 'react';
 import { useState, useEffect } from 'react';
-import { Headphones, Briefcase, FlaskConical, Radio, Dumbbell, Route, Settings, LogOut, Sun, Moon, X, Menu, Search, Grid3x3, User } from 'lucide-react';
+import { Headphones, Briefcase, FlaskConical, Radio, Dumbbell, Route, Sun, Moon, X, Menu, Search, Grid3x3, User, LogOut } from 'lucide-react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -184,72 +184,53 @@ function resolveProductHref(product, urls, token) {
   }
   return withSso(base, token);
 }
-function AppSwitcher({
-  productId,
-  productUrls,
-  getSsoToken,
-  onNavigate,
-  onLogout,
-  accountSettingsHref,
-  accountLabel = "Account Settings"
-}) {
+var DEFAULT_PORTFOLIO_URL = "https://www.careernav.ai/portfolio";
+var ICONS = {
+  discover: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 32 32", fill: "none", strokeWidth: "1.8", "aria-hidden": "true", children: [
+    /* @__PURE__ */ jsx("rect", { x: "6", y: "7", width: "20", height: "18", rx: "3" }),
+    /* @__PURE__ */ jsx("path", { d: "M12 7V5.5h8V7M6 14h20M14 16h4" })
+  ] }),
+  practice: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 32 32", fill: "none", strokeWidth: "2", "aria-hidden": "true", children: /* @__PURE__ */ jsx("path", { d: "M4 12v8M8 9v14M24 9v14M28 12v8M8 16h16" }) }),
+  showcase: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 32 32", fill: "none", strokeWidth: "1.8", "aria-hidden": "true", children: [
+    /* @__PURE__ */ jsx("rect", { x: "6", y: "5", width: "20", height: "22", rx: "3" }),
+    /* @__PURE__ */ jsx("path", { d: "M10 11h8M10 16h12M10 21h8M23 6l.7 2.1L26 9l-2.3.9L23 12l-.8-2.1L20 9l2.2-.9L23 6Z" })
+  ] })
+};
+var APPS = [
+  { key: "discover", suiteId: "jobs", kicker: "Pathfinder", verb: "Discover", description: "Find fresh roles and adjacent paths." },
+  { key: "practice", suiteId: "gym", kicker: "Gym", verb: "Practice", description: "Rehearse interviews and build your story bank." },
+  { key: "showcase", suiteId: null, kicker: "Portfolio", verb: "Showcase", description: "Turn your experience into a shareable page." }
+];
+function AppSwitcher({ productId, productUrls, getSsoToken, onNavigate }) {
   const token = getSsoToken?.() ?? null;
+  const hrefFor = (suiteId) => {
+    if (!suiteId) return withSso(productUrls.portfolio || DEFAULT_PORTFOLIO_URL, token);
+    const product = SUITE_PRODUCTS.find((p) => p.id === suiteId);
+    return product ? resolveProductHref(product, productUrls, token) : "#";
+  };
   return /* @__PURE__ */ jsxs("div", { className: "cn-suite-switcher", children: [
-    /* @__PURE__ */ jsx("div", { className: "cn-suite-switcher__head", children: /* @__PURE__ */ jsx("h3", { className: "cn-suite-switcher__title", children: "Product Suite" }) }),
-    /* @__PURE__ */ jsx("div", { className: "cn-suite-switcher__grid", children: SUITE_PRODUCTS.map((p) => {
-      const isCurrent = p.id === productId;
-      const Icon = p.Icon;
-      const href = resolveProductHref(p, productUrls, token);
+    /* @__PURE__ */ jsx("h3", { className: "cn-suite-switcher__title", children: "CareerNav products" }),
+    /* @__PURE__ */ jsx("div", { className: "cn-suite-switcher__grid", children: APPS.map((app) => {
+      const isCurrent = app.suiteId === productId;
       return /* @__PURE__ */ jsxs(
         "a",
         {
-          href,
+          href: hrefFor(app.suiteId),
           target: "_blank",
           rel: "noopener noreferrer",
           onClick: onNavigate,
-          className: cn(
-            "cn-suite-tile",
-            `cn-suite-tile--${p.id}`,
-            isCurrent && "cn-suite-tile--current"
-          ),
+          className: cn("cn-suite-tile", `cn-suite-tile--${app.key}`, isCurrent && "cn-suite-tile--current"),
           "aria-current": isCurrent ? "page" : void 0,
           children: [
-            /* @__PURE__ */ jsx("div", { className: "cn-suite-tile__icon-wrap", children: /* @__PURE__ */ jsx(Icon, { className: "cn-suite-tile__icon", strokeWidth: 2, "aria-hidden": true }) }),
-            /* @__PURE__ */ jsx("span", { className: "cn-suite-tile__label", children: p.name })
+            /* @__PURE__ */ jsx("span", { className: "cn-suite-tile__icon-wrap", children: ICONS[app.key] }),
+            /* @__PURE__ */ jsx("span", { className: "cn-suite-tile__kicker", children: app.kicker }),
+            /* @__PURE__ */ jsx("strong", { className: "cn-suite-tile__verb", children: app.verb }),
+            /* @__PURE__ */ jsx("small", { className: "cn-suite-tile__desc", children: app.description })
           ]
         },
-        p.id
+        app.key
       );
-    }) }),
-    /* @__PURE__ */ jsxs("div", { className: "cn-suite-switcher__footer", children: [
-      accountSettingsHref ? /* @__PURE__ */ jsxs(
-        "a",
-        {
-          href: accountSettingsHref,
-          onClick: onNavigate,
-          className: "cn-suite-switcher__action",
-          children: [
-            /* @__PURE__ */ jsx("span", { className: "cn-suite-switcher__action-icon", children: /* @__PURE__ */ jsx(Settings, { className: "cn-suite-switcher__action-svg", "aria-hidden": true }) }),
-            /* @__PURE__ */ jsx("span", { className: "cn-suite-switcher__action-label", children: accountLabel })
-          ]
-        }
-      ) : null,
-      onLogout ? /* @__PURE__ */ jsxs(
-        "button",
-        {
-          type: "button",
-          onClick: () => {
-            onLogout();
-            onNavigate?.();
-          },
-          className: "cn-suite-switcher__action cn-suite-switcher__action--danger",
-          children: [
-            /* @__PURE__ */ jsx("span", { className: "cn-suite-switcher__action-icon", children: /* @__PURE__ */ jsx(LogOut, { className: "cn-suite-switcher__action-svg", "aria-hidden": true }) }),
-            /* @__PURE__ */ jsx("span", { className: "cn-suite-switcher__action-label", children: "Sign Out" })
-          ]
-        }
-      ) : null
-    ] })
+    }) })
   ] });
 }
 function ThemeToggle({ theme = "light", onToggle }) {
@@ -297,10 +278,10 @@ function readDismissed() {
 }
 function SuiteHeader({
   productId,
-  productName,
-  productInitial,
-  logoSrc,
-  logoAlt,
+  productName: _productName,
+  productInitial: _productInitial,
+  logoSrc: _logoSrc,
+  logoAlt: _logoAlt,
   navItems = [],
   user,
   isAuthenticated,
@@ -327,10 +308,8 @@ function SuiteHeader({
   const NavLink = NavLinkComp || DefaultNavLink;
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const name = productName ?? productDisplayName(productId);
-  const mark = (productInitial ?? name.charAt(0) ?? "C").toUpperCase();
   const tokenClass = colorTokens === "hsl" ? "cn-suite-hsl-tokens" : void 0;
-  const brandAlt = logoAlt ?? name;
+  const brandAlt = "CareerNav";
   const authed = isAuthenticated ?? !!user;
   const [verifyDismissed, setVerifyDismissed] = useState(readDismissed);
   const showVerify = authed && user?.emailVerified === false && !verifyDismissed;
@@ -341,12 +320,12 @@ function SuiteHeader({
     } catch {
     }
   };
-  const brandMark = logoSrc ? /* @__PURE__ */ jsx("img", { src: logoSrc, alt: brandAlt, className: "cn-suite-brand-logo" }) : /* @__PURE__ */ jsx("div", { className: "cn-suite-brand-mark", children: mark });
-  const brandCrumb = logoSrc ? null : /* @__PURE__ */ jsxs("nav", { className: "cn-suite-brand-crumb flex items-center text-sm font-semibold tracking-tight", children: [
-    /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-suite hidden sm:inline", children: "Suite" }),
-    /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-sep mx-2 hidden sm:inline", children: "/" }),
-    /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-name", children: name })
-  ] });
+  const brandMark = /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-compass", "aria-hidden": "true", children: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 32 32", fill: "none", children: [
+    /* @__PURE__ */ jsx("circle", { cx: "16", cy: "16", r: "12.2", stroke: "currentColor", strokeWidth: "1.5" }),
+    /* @__PURE__ */ jsx("path", { d: "M20.9 10.5 18.1 18l-7 3 2.9-7.5 6.9-3Z", fill: "currentColor" }),
+    /* @__PURE__ */ jsx("circle", { cx: "16", cy: "16", r: "1.2", fill: "#302e4e" })
+  ] }) });
+  const brandCrumb = /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-word", children: "CareerNav" });
   const initials = (user?.name || user?.email || "U").split(/[\s@]/).filter(Boolean).slice(0, 2).map((s) => s[0]?.toUpperCase()).join("");
   useEffect(() => {
     if (!onSearchClick) return;
@@ -408,17 +387,10 @@ function SuiteHeader({
                 ),
                 /* @__PURE__ */ jsxs("div", { className: "absolute left-0 top-0 bottom-0 w-72 bg-card border-r border-border p-6 shadow-xl", children: [
                   /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-8", children: [
-                    /* @__PURE__ */ jsx("div", { className: "flex items-center gap-3 min-w-0", children: logoSrc ? /* @__PURE__ */ jsx(
-                      "img",
-                      {
-                        src: logoSrc,
-                        alt: brandAlt,
-                        className: "cn-suite-brand-logo"
-                      }
-                    ) : /* @__PURE__ */ jsxs(Fragment, { children: [
-                      /* @__PURE__ */ jsx("div", { className: "cn-suite-brand-mark", children: mark }),
-                      /* @__PURE__ */ jsx("span", { className: "cn-suite-brand-name", children: name })
-                    ] }) }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 min-w-0", children: [
+                      brandMark,
+                      brandCrumb
+                    ] }),
                     /* @__PURE__ */ jsx(
                       "button",
                       {

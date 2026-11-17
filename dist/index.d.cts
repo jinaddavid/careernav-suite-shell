@@ -10,6 +10,8 @@ type SuiteProductUrls = {
     live: string;
     /** Pathfinder app (suite catalog id remains "jobs") */
     pathfinder?: string;
+    /** The portfolio page on the main site. Defaults to https://www.careernav.ai/portfolio */
+    portfolio?: string;
 };
 type SuiteUser = {
     name?: string | null;
@@ -49,8 +51,8 @@ type SuiteHeaderProps = {
     /** Letter in the brand mark (defaults to first letter of product name) */
     productInitial?: string;
     /**
-     * Optional product wordmark/logo URL (e.g. `/logo.png`).
-     * When set, replaces the letter mark + “Suite / Name” crumb.
+     * @deprecated The header always shows the CareerNav compass and wordmark now (PM design).
+     * Accepted so existing apps keep compiling; it is ignored.
      */
     logoSrc?: string;
     /** Alt text for logoSrc (defaults to product name) */
@@ -90,18 +92,19 @@ type SuiteHeaderProps = {
     className?: string;
 };
 
-declare function SuiteHeader({ productId, productName, productInitial, logoSrc, logoAlt, navItems, user, isAuthenticated, onLogout, onLoginClick, onSearchClick, searchPlaceholder, Link: LinkComp, NavLink: NavLinkComp, productUrls, getSsoToken, accountSettingsHref, verifyHref, accountLabel, loginHref, homeHref, showThemeToggle, colorTokens, theme, onThemeToggle, className, }: SuiteHeaderProps): react.JSX.Element;
+declare function SuiteHeader({ productId, productName: _productName, productInitial: _productInitial, logoSrc: _logoSrc, logoAlt: _logoAlt, navItems, user, isAuthenticated, onLogout, onLoginClick, onSearchClick, searchPlaceholder, Link: LinkComp, NavLink: NavLinkComp, productUrls, getSsoToken, accountSettingsHref, verifyHref, accountLabel, loginHref, homeHref, showThemeToggle, colorTokens, theme, onThemeToggle, className, }: SuiteHeaderProps): react.JSX.Element;
 
 type Props$1 = {
     productId: SuiteProductId;
     productUrls: SuiteProductUrls;
     getSsoToken?: () => string | null | undefined;
     onNavigate?: () => void;
+    /** Accepted for compatibility; sign out and account now live in the avatar menu. */
     onLogout?: () => void;
     accountSettingsHref?: string;
     accountLabel?: string;
 };
-declare function AppSwitcher({ productId, productUrls, getSsoToken, onNavigate, onLogout, accountSettingsHref, accountLabel, }: Props$1): react.JSX.Element;
+declare function AppSwitcher({ productId, productUrls, getSsoToken, onNavigate }: Props$1): react.JSX.Element;
 
 type Props = {
     theme?: "light" | "dark";
