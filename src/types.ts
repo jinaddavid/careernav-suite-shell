@@ -15,6 +15,8 @@ export type SuiteProductUrls = {
   live: string;
   /** Pathfinder app (suite catalog id remains "jobs") */
   pathfinder?: string;
+  /** The portfolio page on the main site. Defaults to https://www.careernav.ai/portfolio */
+  portfolio?: string;
 };
 
 export type SuiteUser = {
@@ -58,8 +60,8 @@ export type SuiteHeaderProps = {
   /** Letter in the brand mark (defaults to first letter of product name) */
   productInitial?: string;
   /**
-   * Optional product wordmark/logo URL (e.g. `/logo.png`).
-   * When set, replaces the letter mark + “Suite / Name” crumb.
+   * @deprecated The header always shows the CareerNav compass and wordmark now (PM design).
+   * Accepted so existing apps keep compiling; it is ignored.
    */
   logoSrc?: string;
   /** Alt text for logoSrc (defaults to product name) */

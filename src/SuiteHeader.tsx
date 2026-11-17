@@ -12,7 +12,6 @@ import {
 } from "./ui/dropdown-menu";
 import { AppSwitcher } from "./AppSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
-import { productDisplayName } from "./products";
 import { withSso } from "./sso";
 import { cn } from "./cn";
 import type {
@@ -80,10 +79,10 @@ function readDismissed(): boolean {
 
 export function SuiteHeader({
   productId,
-  productName,
-  productInitial,
-  logoSrc,
-  logoAlt,
+  productName: _productName,
+  productInitial: _productInitial,
+  logoSrc: _logoSrc,
+  logoAlt: _logoAlt,
   navItems = [],
   user,
   isAuthenticated,
@@ -110,10 +109,8 @@ export function SuiteHeader({
   const NavLink = (NavLinkComp || DefaultNavLink) as SuiteNavLinkComponent;
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const name = productName ?? productDisplayName(productId);
-  const mark = (productInitial ?? name.charAt(0) ?? "C").toUpperCase();
   const tokenClass = colorTokens === "hsl" ? "cn-suite-hsl-tokens" : undefined;
-  const brandAlt = logoAlt ?? name;
+  const brandAlt = "CareerNav";
   const authed = isAuthenticated ?? !!user;
   const [verifyDismissed, setVerifyDismissed] = useState(readDismissed);
   const showVerify = authed && user?.emailVerified === false && !verifyDismissed;
@@ -126,19 +123,17 @@ export function SuiteHeader({
     }
   };
 
-  const brandMark = logoSrc ? (
-    <img src={logoSrc} alt={brandAlt} className="cn-suite-brand-logo" />
-  ) : (
-    <div className="cn-suite-brand-mark">{mark}</div>
+  // PM design: the compass mark and the word CareerNav, the same in every app.
+  const brandMark = (
+    <span className="cn-suite-brand-compass" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="12.2" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M20.9 10.5 18.1 18l-7 3 2.9-7.5 6.9-3Z" fill="currentColor" />
+        <circle cx="16" cy="16" r="1.2" fill="#302e4e" />
+      </svg>
+    </span>
   );
-
-  const brandCrumb = logoSrc ? null : (
-    <nav className="cn-suite-brand-crumb flex items-center text-sm font-semibold tracking-tight">
-      <span className="cn-suite-brand-suite hidden sm:inline">Suite</span>
-      <span className="cn-suite-brand-sep mx-2 hidden sm:inline">/</span>
-      <span className="cn-suite-brand-name">{name}</span>
-    </nav>
-  );
+  const brandCrumb = <span className="cn-suite-brand-word">CareerNav</span>;
 
   const initials = (user?.name || user?.email || "U")
     .split(/[\s@]/)
@@ -218,18 +213,8 @@ export function SuiteHeader({
                   <div className="absolute left-0 top-0 bottom-0 w-72 bg-card border-r border-border p-6 shadow-xl">
                     <div className="flex items-center justify-between mb-8">
                       <div className="flex items-center gap-3 min-w-0">
-                        {logoSrc ? (
-                          <img
-                            src={logoSrc}
-                            alt={brandAlt}
-                            className="cn-suite-brand-logo"
-                          />
-                        ) : (
-                          <>
-                            <div className="cn-suite-brand-mark">{mark}</div>
-                            <span className="cn-suite-brand-name">{name}</span>
-                          </>
-                        )}
+                        {brandMark}
+                        {brandCrumb}
                       </div>
                       <button
                         type="button"

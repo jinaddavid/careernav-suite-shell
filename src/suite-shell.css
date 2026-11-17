@@ -105,49 +105,25 @@
   --cn-product-soft: #e8e8ed;
 }
 
-.cn-suite-root .cn-suite-brand-mark {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.875rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-  background: var(--cn-product) !important;
-  color: var(--cn-product-fg) !important;
+/* Brand: the compass mark and the word CareerNav (PM design). */
+.cn-suite-root .cn-suite-brand-compass {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  color: #61bdc0;
 }
-
-.cn-suite-root .cn-suite-brand-logo {
-  display: block;
-  height: 2rem;
-  width: auto;
-  max-width: min(11rem, 42vw);
-  object-fit: contain;
-  object-position: left center;
+.cn-suite-root .cn-suite-brand-compass svg {
+  width: 30px;
+  height: 30px;
 }
-
-/* Navy/teal wordmarks stay readable on dark suite chrome */
-.dark .cn-suite-root .cn-suite-brand-logo {
-  box-sizing: content-box;
-  border-radius: 0.375rem;
-  background: #ffffff;
-  padding: 0.3rem 0.55rem;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
-}
-
-.cn-suite-root .cn-suite-brand-name {
-  font-weight: 700;
-  color: var(--cn-product) !important;
-}
-
-.cn-suite-root .cn-suite-brand-suite {
-  color: var(--cn-muted-fg);
-}
-
-.cn-suite-root .cn-suite-brand-sep {
-  color: var(--cn-border);
+.cn-suite-root .cn-suite-brand-word {
+  color: var(--cn-fg);
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
 }
 
 .cn-suite-root .cn-suite-nav-link {
@@ -182,23 +158,21 @@
   font-weight: 600;
 }
 
-/* ── Product Suite switcher (no shared Tailwind color utilities) ── */
+/* ── "CareerNav products" popup (PM design): three big tiles ── */
 
 .cn-suite-root .cn-suite-switcher {
-  width: min(20rem, calc(100vw - 2rem));
-  padding: 1.5rem;
-  /* Opaque by default — never rely on a possibly-invalid --cn-card */
+  width: min(680px, calc(100vw - 32px));
+  padding: 22px;
+  /* Opaque by default: never rely on a possibly-invalid --cn-card */
   background-color: #ffffff;
   color: #171e2e;
-  border-radius: 1.5rem;
+  border-radius: 16px;
 }
-
 .cn-suite-root.cn-suite-popover-surface,
 .cn-suite-root .cn-suite-popover-surface {
   background-color: #ffffff !important;
   color: #171e2e !important;
 }
-
 /* Themeable surfaces only when HSL-channel tokens are opted in */
 .cn-suite-root.cn-suite-hsl-tokens .cn-suite-switcher,
 .cn-suite-root.cn-suite-hsl-tokens.cn-suite-popover-surface,
@@ -207,184 +181,149 @@
   color: var(--cn-card-fg) !important;
 }
 
-.cn-suite-root .cn-suite-switcher__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  padding: 0 0.5rem;
-}
-
 .cn-suite-root .cn-suite-switcher__title {
-  margin: 0;
-  font-size: 0.75rem;
+  margin: 0 0 16px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--cn-muted-fg);
-  opacity: 0.85;
+  color: #302e4e;
 }
+.dark .cn-suite-root .cn-suite-switcher__title { color: #d9d5ff; }
 
 .cn-suite-root .cn-suite-switcher__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: 1rem;
-  row-gap: 1.5rem;
+  gap: 12px;
 }
 
 .cn-suite-root .cn-suite-tile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  outline: none;
-  color: inherit;
+  min-height: 220px;
+  padding: 20px 15px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: #eeefec;
+  color: #201f2e;
+  text-align: center;
   text-decoration: none;
+  outline: none;
+  transition: transform 0.18s, border-color 0.18s, background 0.18s;
+}
+.dark .cn-suite-root .cn-suite-tile {
+  background: #302f44;
+  color: #f2f1ed;
+}
+.cn-suite-root .cn-suite-tile:hover,
+.cn-suite-root .cn-suite-tile:focus-visible {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, #438d91 35%, #dcdfda);
+  background: #e6f2ef;
+}
+.dark .cn-suite-root .cn-suite-tile:hover,
+.dark .cn-suite-root .cn-suite-tile:focus-visible {
+  background: #253f41;
+  border-color: #78cecc;
+}
+.cn-suite-root .cn-suite-tile--current {
+  border-color: #438d91;
+  box-shadow: inset 0 0 0 1px #438d91;
+}
+.dark .cn-suite-root .cn-suite-tile--current {
+  border-color: #78cecc;
+  box-shadow: inset 0 0 0 1px #78cecc;
 }
 
 .cn-suite-root .cn-suite-tile__icon-wrap {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-  /* Soft product plate at rest — Indigo ink stays visible on dark switcher cards */
-  background: var(--cn-tile-soft, var(--cn-muted));
-  transition: background-color 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: none;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 16px;
+  border-radius: 18px;
+  background: #d8eeee;
+  color: #177f81;
 }
-
-.cn-suite-root .cn-suite-tile__icon {
-  width: 1.75rem;
-  height: 1.75rem;
-  /* Explicit — never inherit host link/button colors */
-  color: var(--cn-tile-icon, #52525b) !important;
+.cn-suite-root .cn-suite-tile--showcase .cn-suite-tile__icon-wrap {
+  background: #ebe8f2;
+  color: #302e4e;
+}
+.dark .cn-suite-root .cn-suite-tile__icon-wrap {
+  background: #27484a;
+  color: #80d9d7;
+}
+.dark .cn-suite-root .cn-suite-tile--showcase .cn-suite-tile__icon-wrap {
+  background: #393752;
+  color: #d9d5ff;
+}
+.cn-suite-root .cn-suite-tile__icon-wrap svg {
+  width: 38px;
+  height: 38px;
   stroke: currentColor;
 }
 
-.cn-suite-root .cn-suite-tile__label {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--cn-muted-fg);
-  transition: color 0.15s ease;
+.cn-suite-root .cn-suite-tile__kicker {
+  display: block;
+  color: #6d6c79;
+  font: 700 9px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
-
-.cn-suite-root .cn-suite-tile--current .cn-suite-tile__label {
-  font-weight: 700;
-  color: var(--cn-fg);
-}
-
-/* Per-product palette (fixed hex — immune to host .bg-purple-50 / .text-primary) */
-/* Per-product palette — EvolvedWork Teal / Indigo / Aqua only */
-.cn-suite-root .cn-suite-tile--studio {
-  --cn-tile-icon: #096a6a;
-  --cn-tile-soft: #d5e9e8;
-  --cn-tile-ring: #096a6a;
-}
-.cn-suite-root .cn-suite-tile--jobs {
-  --cn-tile-icon: #2f2e4a;
-  --cn-tile-soft: #e8e8ed;
-  --cn-tile-ring: #2f2e4a;
-}
-.cn-suite-root .cn-suite-tile--lab {
-  --cn-tile-icon: #2f2e4a;
-  --cn-tile-soft: #e8e8ed;
-  --cn-tile-ring: #4db2b2;
-}
-.cn-suite-root .cn-suite-tile--live {
-  --cn-tile-icon: #4db2b2;
-  --cn-tile-soft: #d5e9e8;
-  --cn-tile-ring: #4db2b2;
-}
-.cn-suite-root .cn-suite-tile--gym {
-  --cn-tile-icon: #096a6a;
-  --cn-tile-soft: #d5e9e8;
-  --cn-tile-ring: #096a6a;
-}
-.cn-suite-root .cn-suite-tile--my-paths {
-  --cn-tile-icon: #4db2b2;
-  --cn-tile-soft: #d5e9e8;
-  --cn-tile-ring: #4db2b2;
-}
-
-.cn-suite-root .cn-suite-tile:hover .cn-suite-tile__icon-wrap {
-  box-shadow:
-    0 0 0 2px color-mix(in srgb, var(--cn-tile-ring) 55%, transparent),
-    0 2px 4px -1px rgba(0, 0, 0, 0.08);
-}
-
-.cn-suite-root .cn-suite-tile:hover .cn-suite-tile__label {
-  color: var(--cn-fg);
-}
-
-/* Current product: soft fill + ring (same pattern for every product) */
-.cn-suite-root .cn-suite-tile--current .cn-suite-tile__icon-wrap {
-  background: var(--cn-tile-soft) !important;
-  box-shadow:
-    0 0 0 2px var(--cn-tile-ring),
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -2px rgba(0, 0, 0, 0.1);
-}
-
-.cn-suite-root .cn-suite-switcher__footer {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--cn-border);
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.cn-suite-root .cn-suite-switcher__action {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem;
-  border-radius: 0.75rem;
-  text-align: left;
-  transition: background-color 0.15s ease;
+.dark .cn-suite-root .cn-suite-tile__kicker { color: #b8b5c2; }
+.cn-suite-root .cn-suite-tile__verb {
+  display: block;
+  margin-top: 7px;
+  font-size: 20px;
+  font-weight: 650;
+  line-height: 1.05;
   color: inherit;
-  text-decoration: none;
-  width: 100%;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  font: inherit;
 }
-
-.cn-suite-root .cn-suite-switcher__action:hover {
-  background: var(--cn-muted);
+.cn-suite-root .cn-suite-tile__desc {
+  display: block;
+  margin-top: 10px;
+  color: #6d6c79;
+  font-size: 10px;
+  line-height: 1.5;
 }
+.dark .cn-suite-root .cn-suite-tile__desc { color: #b8b5c2; }
 
-.cn-suite-root .cn-suite-switcher__action-icon {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 9999px;
-  background: var(--cn-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--cn-muted-fg);
+/* Phones: a list instead of three columns. */
+@media (max-width: 640px) {
+  .cn-suite-root .cn-suite-switcher {
+    width: min(420px, calc(100vw - 28px));
+    padding: 17px;
+  }
+  .cn-suite-root .cn-suite-switcher__grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .cn-suite-root .cn-suite-tile {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: 14px;
+    min-height: 0;
+    padding: 13px;
+    text-align: left;
+    justify-items: start;
+    align-items: center;
+  }
+  .cn-suite-root .cn-suite-tile__icon-wrap {
+    grid-row: 1 / 4;
+    width: 58px;
+    height: 58px;
+    margin: 0;
+    border-radius: 14px;
+  }
+  .cn-suite-root .cn-suite-tile__icon-wrap svg {
+    width: 31px;
+    height: 31px;
+  }
+  .cn-suite-root .cn-suite-tile__verb { margin-top: 3px; font-size: 17px; }
+  .cn-suite-root .cn-suite-tile__desc { margin-top: 4px; font-size: 9.5px; }
 }
-
-.cn-suite-root .cn-suite-switcher__action--danger .cn-suite-switcher__action-icon,
-.cn-suite-root .cn-suite-switcher__action--danger .cn-suite-switcher__action-label {
-  color: #f43f5e;
-}
-
-.cn-suite-root .cn-suite-switcher__action-svg {
-  width: 1rem;
-  height: 1rem;
-}
-
-.cn-suite-root .cn-suite-switcher__action-label {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--cn-muted-fg);
-}
-
 
 /* Slim "verify your account" strip above the pill. Fixed colours so it reads on any host theme. */
 .cn-suite-root .cn-suite-verify {
